@@ -1,11 +1,15 @@
 import random
 import time
+import os
 import sys
 from Adafruit_IO import MQTTClient
+from dotenv import load_dotenv
+
+load_dotenv()
 
 AIO_FEED_ID = ["welcome-feed", "stream", "thresholds", "hardware-status.light-intensity", "hardware-status.lock-status"]
-ADAFRUIT_IO_USERNAME = "minhduco19"
-ADAFRUIT_IO_KEY = "aio_CSyP42HcEnAkKEESMJIv2b10o5bb"
+ADAFRUIT_IO_USERNAME = os.getenv('PROJECT_USERNAME')
+ADAFRUIT_IO_KEY = os.getenv('PROJECT_API_KEY')
 
 def connected(client):
     print("Ket noi thanh cong ...")
