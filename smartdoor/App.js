@@ -8,8 +8,12 @@ import AccessHistory from "./screens/AccessHistory";
 import DetailAccessHistory from "./screens/DetailAccessHistory";
 import User from "./screens/User";
 import DetailUser from "./screens/DetailUser";
+import NewUser from "./screens/NewUser";
+import EditUser from "./screens/EditUser";
 import Door from "./screens/Door";
 import DetailDoor from "./screens/DetailDoor";
+import NewDoor from "./screens/NewDoor";
+import EditDoor from "./screens/EditDoor";
 
 
 function HomeScreen() {
@@ -62,6 +66,9 @@ function UserStackScreen() {
     <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
       <HistoryStack.Screen name="Home" component={User} />
       <HistoryStack.Screen name="Details" component={DetailUser} />
+      <HistoryStack.Screen name="Add" component={NewUser} />
+      <HistoryStack.Screen name="Edit" component={EditUser} />
+
     </HistoryStack.Navigator>
   );
 }
@@ -71,6 +78,9 @@ function DoorStackScreen() {
     <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
       <HistoryStack.Screen name="Home" component={Door} />
       <HistoryStack.Screen name="Details" component={DetailDoor} />
+      <HistoryStack.Screen name="Add" component={NewDoor} />
+      <HistoryStack.Screen name="Edit" component={EditDoor} />
+
     </HistoryStack.Navigator>
   );
 }
