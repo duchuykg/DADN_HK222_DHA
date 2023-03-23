@@ -1,9 +1,10 @@
 import * as React from "react";
 import { useState } from "react";
 import { Image, StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
-const BlockInValid = ({setRenderBlockValid, navigation }) => {
+const BlockInValid = ({navigation}) => {
+  const valid = false
   const onPressButton = () => {
-    return navigation.navigate('Details')
+    return navigation.navigate('Details', {valid})
   };
   
   return (
@@ -33,9 +34,10 @@ const BlockInValid = ({setRenderBlockValid, navigation }) => {
     </>
   );
 };
-const BlockValid = ({setRenderBlockValid, navigation }) => {
+const BlockValid = ({navigation }) => {
+  const valid = true
   const onPressButton = () => {
-    return navigation.navigate('Details')
+    return navigation.navigate('Details', {valid})
   };
   
   return (
@@ -66,15 +68,12 @@ const BlockValid = ({setRenderBlockValid, navigation }) => {
   );
 };
 const AccessHistory = ({navigation}) => {
-  const [renderBlockValid, setRenderBlockValid] = useState(false);
-
   return (
     <View style={styles.accessHistory}>
-      {renderBlockValid && <BlockValid />}
-      {renderBlockValid || <ScrollView style={styles.body}>
-        <BlockValid setRenderBlockValid={setRenderBlockValid} navigation={navigation}/>
-        <BlockInValid setRenderBlockValid={setRenderBlockValid} navigation={navigation}/>
-      </ScrollView>}
+      <ScrollView style={styles.body}>
+        <BlockValid navigation={navigation}/>
+        <BlockInValid navigation={navigation}/>
+      </ScrollView>
     </View>
   );
 };
