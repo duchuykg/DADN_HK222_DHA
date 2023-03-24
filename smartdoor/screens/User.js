@@ -213,7 +213,7 @@ const Doors = ({navigation}) => {
     const [searchText, setSearchText] = useState("");
 
     const handleRedButtonPress = () => {
-      return navigation.navigate('Details')
+      return navigation.navigate('Add')
     };
    
     const doors = [

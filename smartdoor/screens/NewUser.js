@@ -1,16 +1,52 @@
 import * as React from "react";
-import { useState } from "react";
-import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity} from "react-native";
+import { useState, useEffect } from "react";
+import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform, TextInput } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
-const DetailDoor = ({navigation }) => {
-  const handleEditPress = () => {
-    return navigation.navigate("Edit");
-  };
+const NewUser = () => {
+    const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
+  }, []);
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+        });
+
+        if (!result.cancelled) {
+        setImage(result.uri);
+        }
+    };
   return (
     <>
         <View style={styles.container}>
           <ScrollView style={styles.scrollViewContent}>
-            <Text style={styles.text}>Door 1</Text>
+            <Text style={styles.text}>New User</Text>
+            <View style={styles.imageview}>
+                <TouchableOpacity onPress={pickImage}>
+                    {image ? (
+                    <Image source={{ uri: image }} style={styles.image1} resizeMode="contain" />
+                    ) : (
+                    <Image
+                        source={require("../assets/image.png")}
+                        style={styles.image1}
+                        resizeMode="contain"
+                    />
+                    )}
+                </TouchableOpacity>
+            </View>
             <View style={styles.detailview}>
               <View
                 style={{
@@ -31,7 +67,7 @@ const DetailDoor = ({navigation }) => {
                   <Text
                     style={{
                       color: 'black',
-                      fontSize: 20,
+                      fontSize: 18,
                       paddingHorizontal: 10,
                     }}
                   >
@@ -39,9 +75,11 @@ const DetailDoor = ({navigation }) => {
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                  <Text style={{ color: "gray", paddingHorizontal: 10 }}>
-                    Door 1
-                  </Text>
+                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
+                    placeholder="Enter User Name"
+                    placeholderTextColor="gray"
+                    >
+                  </TextInput>
                 </View>
               </View>
               
@@ -64,17 +102,19 @@ const DetailDoor = ({navigation }) => {
                   <Text
                     style={{
                       color: 'black',
-                      fontSize: 20,
+                      fontSize: 18,
                       paddingHorizontal: 10,
                     }}
                   >
-                    Location
+                    Acess Permissions
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                  <Text style={{ color: "gray", paddingHorizontal: 10 }}>
-                    North
-                  </Text>
+                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
+                    placeholder="Add Door"
+                    placeholderTextColor="gray"
+                    >
+                  </TextInput>
                 </View>
               </View>
 
@@ -97,7 +137,7 @@ const DetailDoor = ({navigation }) => {
                   <Text
                     style={{
                       color: 'black',
-                      fontSize: 20,
+                      fontSize: 18,
                       paddingHorizontal: 10,
                     }}
                   >
@@ -105,85 +145,19 @@ const DetailDoor = ({navigation }) => {
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                  <Text style={{ color: "gray", paddingHorizontal: 10 }}>
-                    North
-                  </Text>
+                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
+                    placeholder="Nothing about user"
+                    placeholderTextColor="gray"
+                    >
+                  </TextInput>
                 </View>
               </View>
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  paddingVertical: 5,
-                  backgroundColor: "#fff",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    padding: 5,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 20,
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    Status
-                  </Text>
-                </View>
-                <View style={styles.box}>
-                  <Text style={{ color: "black", paddingHorizontal: 10, fontWeight: 'bold' }}>
-                    Open
-                  </Text>
-                </View>
-              </View> 
 
               {/* Button */}
               </View>
-                <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button, styles.deleteButton]}>
-                <View>
-                  <View style={{
-                      flexDirection: "row",
-                      padding: 5,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      source={require("../assets/unlock.png")}
-                      style={styles.checkicon}
-                    />
-                    <Text style={styles.buttonText}> Open Door </Text>
-                  </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.button1, styles.deleteButton]}>
-                <View>
-                  <View style={{
-                      flexDirection: "row",
-                      padding: 5,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      source={require("../assets/lock.png")}
-                      style={styles.checkicon1}
-                    />
-                    <Text style={styles.buttonText}> Close Door </Text>
-                  </View>
-                  </View>
-                </TouchableOpacity>
-
                 
-              </View>
               <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button3, styles.editButton]} onPress={handleEditPress}>
+                <TouchableOpacity style={[styles.button, styles.editButton]}>
                 <View>
                   <View style={{
                       flexDirection: "row",
@@ -192,31 +166,14 @@ const DetailDoor = ({navigation }) => {
                     }}
                   >
                     <Image
-                      source={require("../assets/pen.png")}
+                      source={require("../assets/Add.png")}
                       style={styles.checkicon}
                     />
-                    <Text style={styles.buttonTextB}> Edit </Text>
+                    <Text style={styles.buttonText}> Add </Text>
                   </View>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.button1, styles.deleteButton]}>
-                <View>
-                  <View style={{
-                      flexDirection: "row",
-                      padding: 5,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      source={require("../assets/trash.png")}
-                      style={styles.checkicon1}
-                    />
-                    <Text style={styles.buttonText}> Delete </Text>
-                  </View>
-                  </View>
-                </TouchableOpacity>
-              </View>
-
+                </View>
           </ScrollView>
 
         </View>
@@ -227,12 +184,12 @@ const DetailDoor = ({navigation }) => {
 
 const styles = StyleSheet.create({
   checkicon: {
-    width: 18,
-    height: 18,
+    width: 26,
+    height: 26,
   },
   checkicon1: {
-    width: 18,
-    height: 18,
+    width: 23,
+    height: 23,
   },
   image: {
     width: 64,
@@ -306,12 +263,11 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginLeft: 15,
     borderRadius: 5,
+    marginLeft: 92,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '44%',
+    width: '45%',
   },
   button1: {
     paddingVertical: 10,
@@ -324,9 +280,9 @@ const styles = StyleSheet.create({
   },
   editButton: {
     backgroundColor: '#FFFFFF',
+    borderColor: 'gray',
     borderWidth: 2,
     borderRadius: 15, 
-    borderColor: '#007AFF',
 
   },
   deleteButton: {
@@ -347,32 +303,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   box: {
-    backgroundColor: 'green',
     borderColor: '#000',
     paddingHorizontal: 15,
     paddingVertical: 8,
     borderRadius: 32, 
+    justifyContent: "space-between",
+    flexDirection: "row",
+
   },  
-  button2: {
-    paddingVertical: 10,
-    borderRadius: 5,
-    marginLeft: 92,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '45%',
-  },
-
-  button3: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginLeft: 15,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '44%',
-
-  },
 
 });
 
-export default DetailDoor;
+export default NewUser;
