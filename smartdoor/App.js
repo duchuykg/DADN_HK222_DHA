@@ -18,16 +18,6 @@ import DetailDoor from "./screens/DetailDoor";
 import NewDoor from "./screens/NewDoor";
 import EditDoor from "./screens/EditDoor";
 
-
-
-// function HistoryScreen() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-//       <Text>Settings!</Text>
-//     </View>
-//   );
-// }
-
 const Tab = createBottomTabNavigator();
 
 const HistoryStack = createNativeStackNavigator();

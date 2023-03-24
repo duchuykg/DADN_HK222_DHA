@@ -1,35 +1,166 @@
 import * as React from "react";
-import { useState } from "react";
-import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity} from "react-native";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+async function getlock(id) {
+  try {
+    const response = await axios.get("http://192.168.1.100:4000/user/" + id + "/lock");
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
+const DetailUser = ({ navigation, route }) => {
+  const { user } = route.params;
+  const [lock, setLock] = useState([]);
 
-const DetailUser = ({navigation }) => {
   const handleEditPress = () => {
     return navigation.navigate("Edit");
   };
-  
+
+  useEffect(() => {
+    async function fetchData() {
+      const data1 = await getlock(user._id);
+      setLock(data1);
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
-        <View style={styles.container}>
-          <ScrollView style={styles.scrollViewContent}>
-            <Text style={styles.text}>AmandaDoe</Text>
-            <View style={styles.imageview}>
-              <Image
-                source={require("../assets/Avatar4.png")}
-                style={styles.image1}
-                resizeMode="contain"
-              />
+      <View style={styles.container}>
+        <ScrollView style={styles.scrollViewContent}>
+        <View style={styles.imageview}>
+        <Text style={styles.text}>{user.ten}</Text>
+          </View>
+          
+          <View style={styles.imageview}>
+            <Image
+              source={require("../assets/Avatar4.png")}
+              style={styles.image1}
+              resizeMode="contain"
+            />
+          </View>
+          <View style={styles.detailview}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingVertical: 5,
+                backgroundColor: "#fff",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  padding: 5,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 20,
+                    paddingHorizontal: 10,
+                  }}
+                >
+                  Name
+                </Text>
+              </View>
+              <View style={{ paddingHorizontal: 10 }}>
+                <Text style={{ color: "gray", paddingHorizontal: 10 }}>
+                  {user.ten}
+                </Text>
+              </View>
             </View>
-            <View style={styles.detailview}>
+
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingVertical: 5,
+                backgroundColor: "#fff",
+              }}
+            >
               <View
                 style={{
                   flexDirection: "row",
-                  justifyContent: "space-between",
+                  padding: 5,
                   alignItems: "center",
-                  paddingVertical: 5,
-                  backgroundColor: "#fff",
                 }}
               >
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 20,
+                    paddingHorizontal: 10,
+                  }}
+                >
+                  Acess Permissions
+                </Text>
+              </View>
+              <View style={{ paddingHorizontal: 10 }}>
+                <Text style={{ color: "gray", paddingHorizontal: 10 }}>
+                  {lock.map((lockitem) => {
+                    return lockitem.ten
+                  })}
+                </Text>
+              </View>
+            </View>
+
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingVertical: 5,
+                backgroundColor: "#fff",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  padding: 5,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 20,
+                    paddingHorizontal: 10,
+                  }}
+                >
+                  Note
+                </Text>
+              </View>
+              <View style={{ paddingHorizontal: 10 }}>
+                <Text style={{ color: "gray", paddingHorizontal: 10 }}>
+                  {user.thongTin}
+                </Text>
+              </View>
+            </View>
+
+            {/* Button */}
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={[styles.button, styles.editButton]}
+              onPress={handleEditPress}
+            >
+              <View>
                 <View
                   style={{
                     flexDirection: "row",
@@ -37,32 +168,16 @@ const DetailUser = ({navigation }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 20,
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    Name
-                  </Text>
-                </View>
-                <View style={{ paddingHorizontal: 10 }}>
-                  <Text style={{ color: "gray", paddingHorizontal: 10 }}>
-                    Amanda Doe
-                  </Text>
+                  <Image
+                    source={require("../assets/pen.png")}
+                    style={styles.checkicon}
+                  />
+                  <Text style={styles.buttonTextB}> Edit </Text>
                 </View>
               </View>
-              
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  paddingVertical: 5,
-                  backgroundColor: "#fff",
-                }}
-              >
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button1, styles.deleteButton]}>
+              <View>
                 <View
                   style={{
                     flexDirection: "row",
@@ -70,97 +185,17 @@ const DetailUser = ({navigation }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 20,
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    Acess Permissions
-                  </Text>
-                </View>
-                <View style={{ paddingHorizontal: 10 }}>
-                  <Text style={{ color: "gray", paddingHorizontal: 10 }}>
-                    Door 1, Door 2
-                  </Text>
+                  <Image
+                    source={require("../assets/trash.png")}
+                    style={styles.checkicon1}
+                  />
+                  <Text style={styles.buttonText}> Delete </Text>
                 </View>
               </View>
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  paddingVertical: 5,
-                  backgroundColor: "#fff",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    padding: 5,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 20,
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    Note
-                  </Text>
-                </View>
-                <View style={{ paddingHorizontal: 10 }}>
-                  <Text style={{ color: "gray", paddingHorizontal: 10 }}>
-                    amanda@gmail.com
-                  </Text>
-                </View>
-              </View>
-
-              {/* Button */}
-              </View>
-                <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button, styles.editButton]} onPress={handleEditPress}>
-                <View>
-                  <View style={{
-                      flexDirection: "row",
-                      padding: 5,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      source={require("../assets/pen.png")}
-                      style={styles.checkicon}
-                    />
-                    <Text style={styles.buttonTextB}> Edit </Text>
-                  </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.button1, styles.deleteButton]}>
-                <View>
-                  <View style={{
-                      flexDirection: "row",
-                      padding: 5,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      source={require("../assets/trash.png")}
-                      style={styles.checkicon1}
-                    />
-                    <Text style={styles.buttonText}> Delete </Text>
-                  </View>
-                  </View>
-                </TouchableOpacity>
-              </View>
-
-          </ScrollView>
-
-        </View>
-      
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
     </>
   );
 };
@@ -210,10 +245,9 @@ const styles = StyleSheet.create({
   },
   text: {
     paddingVertical: 10,
-    paddingLeft: 20,
     fontSize: 30,
     textAlign: "left",
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   intext: {
     paddingVertical: 10,
@@ -238,9 +272,9 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginVertical: 20,
     paddingHorizontal: 10,
   },
@@ -249,45 +283,41 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginLeft: 31,
     borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '35%',
-      borderRadius: 15, 
-
+    justifyContent: "center",
+    alignItems: "center",
+    width: "35%",
+    borderRadius: 15,
   },
   button1: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginRight: 31,
     borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '35%',
-    borderRadius: 15, 
-
+    justifyContent: "center",
+    alignItems: "center",
+    width: "35%",
+    borderRadius: 15,
   },
   editButton: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#007AFF',
+    backgroundColor: "#FFFFFF",
+    borderColor: "#007AFF",
     borderWidth: 2,
-
   },
   deleteButton: {
-    backgroundColor: '#FFFFFF',
-    borderColor: 'gray',
+    backgroundColor: "#FFFFFF",
+    borderColor: "gray",
     borderWidth: 2,
   },
   buttonTextB: {
-    color: '#007AFF',
+    color: "#007AFF",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   buttonText: {
-    color: 'black',
+    color: "black",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-
 });
 
 export default DetailUser;

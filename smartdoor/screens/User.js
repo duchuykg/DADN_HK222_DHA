@@ -1,287 +1,154 @@
 import * as React from "react";
-import { useState } from "react";
-import { useNavigation } from '@react-navigation/native';
-import { Image, StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput} from "react-native";
-const Door = ({navigation }) => {
+import axios from "axios";
+import { useState, useEffect } from "react";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+} from "react-native";
+const UserBlock = ({ navigation, user }) => {
   const onPressButton = () => {
-    return navigation.navigate('Details')
+    return navigation.navigate("Details", {user});
   };
-  
 
-  
-  
+  return (
+    <>
+      <View style={styles.listConfirmGroup}>
+        <View style={styles.listConfirm1}>
+          <Image
+            style={styles.iconL1}
+            resizeMode="cover"
+            source={require("../assets/Avatar2.png")}
+          />
+          <View style={[styles.masterList1, styles.ml12]}>
+            <Text style={[styles.caption1, { fontWeight: "bold" }]}>
+              {user.ten}
+            </Text>
+            <Text style={[styles.subcaption1, styles.mt2]}>
+              {user.thongTin}
+            </Text>
+          </View>
+        </View>
+        <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
+          <Image
+            style={styles.iconL1}
+            resizeMode="cover"
+            source={require("../assets/group-9.png")}
+          />
+        </TouchableOpacity>
+      </View>
+    </>
+  );
+};
+async function getAlluser() {
+  try {
+    const response = await axios.get("http://192.168.1.100:4000/user");
+    return response.data.users;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+const Door = ({ navigation }) => {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getAlluser();
+      setUsers(data);
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <View style={styles.groupContainer}>
-        <View style={styles.listConfirmGroup}>
-          <View style={styles.listConfirm1}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/Avatar.png")}
-            />
-            <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={[styles.caption1, {fontWeight: 'bold'}]}>IU</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>Ca sĩ Hàn Quốc</Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/group-9.png")}
-            />
-          </TouchableOpacity>
-        </View>
+        {users.map((user, index) => {
+          return <UserBlock navigation={navigation} user={user} key={index} />;
+        })}
       </View>
-
-      
-      
-{/* ############################################################################################# */}
-<View style={styles.groupContainer}>
-        <View style={styles.listConfirmGroup}>
-          <View style={styles.listConfirm1}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/Avatar1.png")}
-            />
-            <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={[styles.caption1, {fontWeight: 'bold'}]}>Tiểu Long Nữ</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>Thần điêu đại hiệp</Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/group-9.png")}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.groupContainer}>
-        <View style={styles.listConfirmGroup}>
-          <View style={styles.listConfirm1}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/Avatar2.png")}
-            />
-            <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={[styles.caption1, {fontWeight: 'bold'}]}>Huỳnh Hiểu Minh</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>Diễn viên Trung Quốc</Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/group-9.png")}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.groupContainer}>
-        <View style={styles.listConfirmGroup}>
-          <View style={styles.listConfirm1}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/Avatar3.png")}
-            />
-            <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={[styles.caption1, {fontWeight: 'bold'}]}>Lưu Diệc Phi</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>Diễn viên Trung Quốc</Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/group-9.png")}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.groupContainer}>
-        <View style={styles.listConfirmGroup}>
-          <View style={styles.listConfirm1}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/Avatar4.png")}
-            />
-            <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={[styles.caption1, {fontWeight: 'bold'}]}>Amanda Doe</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>amanda@gmail.com</Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/group-9.png")}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.groupContainer}>
-        <View style={styles.listConfirmGroup}>
-          <View style={styles.listConfirm1}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/Avatar5.png")}
-            />
-            <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={[styles.caption1, {fontWeight: 'bold'}]}>Yoona</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>Nhóm nhạc Hàn Quốc</Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/group-9.png")}
-            />
-          </TouchableOpacity>
-        </View>
-        
-      </View>
-      <View style={styles.groupContainer}>
-        <View style={styles.listConfirmGroup}>
-          <View style={styles.listConfirm1}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/Avatar.png")}
-            />
-            <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={[styles.caption1, {fontWeight: 'bold'}]}>Lee Ji-eun</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>Thần tượng Kpop</Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/group-9.png")}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.groupContainer}>
-        <View style={styles.listConfirmGroup}>
-          <View style={styles.listConfirm1}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/Avatar6.png")}
-            />
-            <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={[styles.caption1, {fontWeight: 'bold'}]}>IU</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>Ca sĩ Hàn Quốc</Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
-            <Image
-              style={styles.iconL1}
-              resizeMode="cover"
-              source={require("../assets/group-9.png")}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-    
-{/* ############################################################################################# */}
-
-      
     </>
   );
 };
 
 const handleFilterPress = () => {
-    console.log("Filter button pressed!");
+  console.log("Filter button pressed!");
 };
-
 
 // const handleFilterDialogClose = () => {
 //     setShowFilterDialog(false); // Ẩn hộp thoại khi nhấn nút đóng
 // };
-const Doors = ({navigation}) => {
-    const [searchText, setSearchText] = useState("");
+const Doors = ({ navigation }) => {
+  const [searchText, setSearchText] = useState("");
 
-    const handleRedButtonPress = () => {
-      return navigation.navigate('Add')
-    };
-   
-    const doors = [
-      { name: "Door 1", direction: "North" },
-      { name: "Door 2", direction: "South" },
-      { name: "Smart Door", direction: "West" }
-    ];
-  
-    const filteredDoors = doors.filter(door => {
-      return door.name.toLowerCase().includes(searchText.toLowerCase()) ||
-             door.direction.toLowerCase().includes(searchText.toLowerCase());
-    });
-  
-    return (
-        <View style={styles.accessHistory}>
-            <View style={styles.searchfilter}>
-                <View style={styles.search}>
-                    <Image
-                        source={require('../assets/search.png')}
-                        style={styles.searchIcon}
-                    />
-                    <TextInput
-                        style={styles.searchInput}
-                        placeholder="Search ..."
-                        value={searchText}
-                        onChangeText={text => setSearchText(text)}
-                    />
-                </View>
-                
-                <TouchableOpacity
-                    style={styles.filterButton}
-                    onPress={handleFilterPress}
-                    >
-                    <Image
-                    source={require('../assets/filters.png')}
-                    style={styles.filterIcon}
-                    />
-                </TouchableOpacity>
-
-            </View>
-            
-            
-            <View style={styles.accessHistory}>
-                {<ScrollView style={styles.body}>
-                    <Door navigation={navigation}/>
-                </ScrollView>}            
-            </View>
-
-            <View style={styles.redButtonContainer}>
-              
-            <TouchableOpacity onPress={handleRedButtonPress}>
-              <View style={styles.redButton}>
-                <Image
-                  source={require('../assets/Buttonred.png')}
-                  style={styles.redButtonIcon}
-                />
-              </View>
-            </TouchableOpacity>
-            </View>
-
-            </View>
-            
-
-        
-        
-    );
+  const handleRedButtonPress = () => {
+    return navigation.navigate("Add");
   };
-  
+
+  const doors = [
+    { name: "Door 1", direction: "North" },
+    { name: "Door 2", direction: "South" },
+    { name: "Smart Door", direction: "West" },
+  ];
+
+  const filteredDoors = doors.filter((door) => {
+    return (
+      door.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      door.direction.toLowerCase().includes(searchText.toLowerCase())
+    );
+  });
+
+  return (
+    <View style={styles.accessHistory}>
+      <View style={styles.searchfilter}>
+        <View style={styles.search}>
+          <Image
+            source={require("../assets/search.png")}
+            style={styles.searchIcon}
+          />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search ..."
+            value={searchText}
+            onChangeText={(text) => setSearchText(text)}
+          />
+        </View>
+
+        <TouchableOpacity
+          style={styles.filterButton}
+          onPress={handleFilterPress}
+        >
+          <Image
+            source={require("../assets/filters.png")}
+            style={styles.filterIcon}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.accessHistory}>
+        {
+          <ScrollView style={styles.body}>
+            <Door navigation={navigation} />
+          </ScrollView>
+        }
+      </View>
+
+      <View style={styles.redButtonContainer}>
+        <TouchableOpacity onPress={handleRedButtonPress}>
+          <View style={styles.redButton}>
+            <Image
+              source={require("../assets/Buttonred.png")}
+              style={styles.redButtonIcon}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   ml12: {
@@ -305,6 +172,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   accessHistory: {
+    flex: 1,
     backgroundColor: "#fff",
     width: "100%",
   },
@@ -358,13 +226,12 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
 
-  searchInput: {    
-    
+  searchInput: {
     marginLeft: 10,
     fontSize: 16,
     flex: 1,
     color: "#000",
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   searchfilter: {
@@ -373,14 +240,13 @@ const styles = StyleSheet.create({
 
   search: {
     // paddingLeft: 24,
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 10,
     paddingVertical: 8,
     backgroundColor: "#E8E8E8",
-    borderRadius: 30, 
+    borderRadius: 30,
     width: "80%",
-    alignItems: 'center',
-    
+    alignItems: "center",
   },
 
   searchIcon: {
@@ -388,25 +254,23 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 0,
-    tintColor: '#999',
+    tintColor: "#999",
   },
   filterButton: {
-    position: 'absolute',
+    position: "absolute",
     right: 25,
     backgroundColor: "#FFFFFF",
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 10,
     paddingVertical: 8,
-    
   },
   filterIcon: {
     width: 25,
     height: 25,
-    alignItems: 'center',
-
+    alignItems: "center",
   },
   redButtonContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 50,
     right: 20,
   },
@@ -414,14 +278,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: 50,
     height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   redButtonIcon: {
     width: 60,
     height: 60,
   },
 });
-
 
 export default Doors;
