@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity} from "react-native";
+import { Alert } from "react-native";
 
 const DetailDoor = ({navigation }) => {
   const handleEditPress = () => {
@@ -199,7 +200,27 @@ const DetailDoor = ({navigation }) => {
                   </View>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.button1, styles.deleteButton]}>
+                <TouchableOpacity style={[styles.button1, styles.deleteButton]}
+                  onPress={() =>
+                    Alert.alert(
+                      "Xác nhận xóa",
+                      "Bạn có chắc chắn muốn xóa dữ liệu này?",
+                      [
+                        {
+                          text: "Cancel",
+                          style: "cancel"
+                        },
+                        {
+                          text: "OK",
+                          onPress: () => {
+                            // Thêm xử lý xóa dữ liệu ở đây
+                          }
+                        }
+                      ]
+                    )
+                  }
+
+                >
                 <View>
                   <View style={{
                       flexDirection: "row",

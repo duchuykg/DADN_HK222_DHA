@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
   },
 
   searchfilter: {
-    
+    marginLeft: 10,
   },
 
   search: {

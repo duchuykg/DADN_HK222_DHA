@@ -29,6 +29,7 @@ const NewUser = () => {
         setImage(result.uri);
         }
     };
+
   return (
     <>
         <View style={styles.container}>
