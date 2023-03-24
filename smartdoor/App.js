@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./screens/Home";
+import Info from "./screens/Info";
 
 import AccessHistory from "./screens/AccessHistory";
 import DetailAccessHistory from "./screens/DetailAccessHistory";
@@ -18,21 +19,14 @@ import NewDoor from "./screens/NewDoor";
 import EditDoor from "./screens/EditDoor";
 
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
 
-function HistoryScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+// function HistoryScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Settings!</Text>
+//     </View>
+//   );
+// }
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +37,14 @@ function HomeStackScreen() {
     <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
       <HistoryStack.Screen name="Home" component={Home} />
       <HistoryStack.Screen name="Details" component={DetailUser} />
+    </HistoryStack.Navigator>
+  );
+}
+
+function InfoStackScreen() {
+  return (
+    <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
+      <HistoryStack.Screen name="Home" component={Info} />
     </HistoryStack.Navigator>
   );
 }
@@ -134,7 +136,7 @@ export default function App() {
         <Tab.Screen name="History" component={HistoryStackScreen} />
         <Tab.Screen name="User" component={UserStackScreen} />
         <Tab.Screen name="Clock" component={DoorStackScreen} />
-        <Tab.Screen name="Info" component={HistoryScreen} tabBarButton={() => {}}/>
+        <Tab.Screen name="Info" component={InfoStackScreen} tabBarButton={() => {}}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
