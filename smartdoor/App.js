@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Home from "./screens/Home";
+
 import AccessHistory from "./screens/AccessHistory";
 import DetailAccessHistory from "./screens/DetailAccessHistory";
 import User from "./screens/User";
@@ -32,25 +34,18 @@ function HistoryScreen() {
   );
 }
 
-function UserScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>User!</Text>
-    </View>
-  );
-}
-
-function DoorScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>User!</Text>
-    </View>
-  );
-}
-
 const Tab = createBottomTabNavigator();
 
 const HistoryStack = createNativeStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
+      <HistoryStack.Screen name="Home" component={Home} />
+      <HistoryStack.Screen name="Details" component={DetailUser} />
+    </HistoryStack.Navigator>
+  );
+}
 
 function HistoryStackScreen() {
   return (
@@ -135,7 +130,7 @@ export default function App() {
           headerTitleStyle: { fontSize: 34,fontWeight: "500",},
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="History" component={HistoryStackScreen} />
         <Tab.Screen name="User" component={UserStackScreen} />
         <Tab.Screen name="Clock" component={DoorStackScreen} />
