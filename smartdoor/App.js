@@ -1,9 +1,12 @@
 import * as React from "react";
 import { Text, View } from "react-native";
+import { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Login from "./screens/Login";
+
 import Home from "./screens/Home";
 import Info from "./screens/Info";
 
@@ -22,10 +25,19 @@ const Tab = createBottomTabNavigator();
 
 const HistoryStack = createNativeStackNavigator();
 
+function LoginStackScreen() {
+  return (
+    <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
+      <HistoryStack.Screen name="Login" component={Login} />
+      <HistoryStack.Screen name="Main" component={Screen} />
+    </HistoryStack.Navigator>
+  );
+}
+
 function HomeStackScreen() {
   return (
     <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
-      <HistoryStack.Screen name="Home" component={Home} />
+      <HistoryStack.Screen name="Homes" component={Home} />
       <HistoryStack.Screen name="Details" component={DetailUser} />
     </HistoryStack.Navigator>
   );
@@ -72,9 +84,8 @@ function DoorStackScreen() {
   );
 }
 
-export default function App() {
+function Screen(){
   return (
-    <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -95,7 +106,7 @@ export default function App() {
               : "ios-information-circle-outline";
             }
 
-            // You can return any component that you like here!
+            // You can return any component that you like here! 
 
             return (
               <>
@@ -122,12 +133,29 @@ export default function App() {
           headerTitleStyle: { fontSize: 34,fontWeight: "500",},
         })}
       >
+        
         <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="History" component={HistoryStackScreen} />
         <Tab.Screen name="User" component={UserStackScreen} />
         <Tab.Screen name="Clock" component={DoorStackScreen} />
         <Tab.Screen name="Info" component={InfoStackScreen} tabBarButton={() => {}}/>
       </Tab.Navigator>
-    </NavigationContainer>
+
   );
 }
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <HistoryStack.Navigator>
+      <HistoryStack.Screen
+        name="Login"
+        component={LoginStackScreen}
+        options={{ headerShown: false }}
+      />
+    </HistoryStack.Navigator>  
+  </NavigationContainer>
+  )
+  
+}
+     

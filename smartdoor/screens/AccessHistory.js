@@ -11,7 +11,7 @@ import {
 } from "react-native";
 async function getuser(id) {
   try {
-    const response = await axios.get("http://192.168.1.100:4000/user/" + id);
+    const response = await axios.get("http://192.168.43.105:4000/user/" + id);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -104,7 +104,8 @@ const BlockValid = ({ navigation, data }) => {
 };
 async function getAllHistory() {
   try {
-    const response = await axios.get("http://192.168.1.100:4000/history");
+    const response = await axios.get("http://192.168.43.105:4000/history");
+    console.log(response.data);
     return response.data.historys;
   } catch (error) {
     console.error(error);
