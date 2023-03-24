@@ -4,6 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Home from "./screens/Home";
+import Info from "./screens/Info";
+
 import AccessHistory from "./screens/AccessHistory";
 import DetailAccessHistory from "./screens/DetailAccessHistory";
 import User from "./screens/User";
@@ -16,41 +19,35 @@ import NewDoor from "./screens/NewDoor";
 import EditDoor from "./screens/EditDoor";
 
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
 
-function HistoryScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-function UserScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>User!</Text>
-    </View>
-  );
-}
-
-function DoorScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>User!</Text>
-    </View>
-  );
-}
+// function HistoryScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Settings!</Text>
+//     </View>
+//   );
+// }
 
 const Tab = createBottomTabNavigator();
 
 const HistoryStack = createNativeStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
+      <HistoryStack.Screen name="Home" component={Home} />
+      <HistoryStack.Screen name="Details" component={DetailUser} />
+    </HistoryStack.Navigator>
+  );
+}
+
+function InfoStackScreen() {
+  return (
+    <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
+      <HistoryStack.Screen name="Home" component={Info} />
+    </HistoryStack.Navigator>
+  );
+}
 
 function HistoryStackScreen() {
   return (
@@ -135,11 +132,11 @@ export default function App() {
           headerTitleStyle: { fontSize: 34,fontWeight: "500",},
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="History" component={HistoryStackScreen} />
         <Tab.Screen name="User" component={UserStackScreen} />
         <Tab.Screen name="Clock" component={DoorStackScreen} />
-        <Tab.Screen name="Info" component={HistoryScreen} tabBarButton={() => {}}/>
+        <Tab.Screen name="Info" component={InfoStackScreen} tabBarButton={() => {}}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
