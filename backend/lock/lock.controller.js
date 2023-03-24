@@ -29,6 +29,20 @@ class  lockController {
       }
     });
   }
+
+  getLockById = async (req, res) => {
+    const lockId = req.params.id;
+    try {
+      const lock = await lockModel.findById(lockId); 
+      if (!lock) {
+        return res.status(404).json({ message: "Lock not found" }); 
+      }
+      res.json(lock); 
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server error" }); 
+    }
+  };
 }
 
 module.exports = new lockController();

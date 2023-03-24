@@ -1,9 +1,29 @@
 import * as React from "react";
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
 
+async function getlock(id) {
+  try {
+    const response = await axios.get("http://192.168.1.100:4000/lock/" + id);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 const DetailAccessHistory = ({ route }) => {
-  const { valid } = route.params;
+  const { valid, user, data } = route.params;
+  const [lock, setLock] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      const data1 = await getlock(data.lockID);
+      setLock(data1);
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       {valid && (
@@ -18,8 +38,8 @@ const DetailAccessHistory = ({ route }) => {
                   source={require("../assets/avatar-profile.png")}
                 />
                 <View style={styles.textContainer}>
-                  <Text style={styles.name}>Amanda Doe</Text>
-                  <Text style={styles.email}>amanda@gmail.com</Text>
+                  <Text style={styles.name}>{user.ten}</Text>
+                  <Text style={styles.email}>{user.thongTin}</Text>
                 </View>
               </View>
             </View>
@@ -63,7 +83,7 @@ const DetailAccessHistory = ({ route }) => {
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                  <Text>10:10 PM 03/02/2023</Text>
+                  <Text>{data.time}</Text>
                 </View>
               </View>
               <View
@@ -99,7 +119,7 @@ const DetailAccessHistory = ({ route }) => {
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
                   <Text style={{ color: "gray", paddingHorizontal: 10 }}>
-                    Main door
+                    {lock.ten}
                   </Text>
                 </View>
               </View>
@@ -204,7 +224,7 @@ const DetailAccessHistory = ({ route }) => {
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                  <Text>10:10 PM 03/02/2023</Text>
+                  <Text>{data.time}</Text>
                 </View>
               </View>
               <View
@@ -240,7 +260,7 @@ const DetailAccessHistory = ({ route }) => {
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
                   <Text style={{ color: "gray", paddingHorizontal: 10 }}>
-                    Main door
+                    {lock.ten}
                   </Text>
                 </View>
               </View>

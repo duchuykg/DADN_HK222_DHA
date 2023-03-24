@@ -1,12 +1,38 @@
 import * as React from "react";
-import { useState } from "react";
-import { Image, StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
-const BlockInValid = ({navigation}) => {
-  const valid = false
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+async function getuser(id) {
+  try {
+    const response = await axios.get("http://192.168.1.100:4000/user/" + id);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+const BlockInValid = ({ navigation, data }) => {
+  const valid = false;
+  const [user, setUser] = useState({});
   const onPressButton = () => {
-    return navigation.navigate('Details', {valid})
+    return navigation.navigate("Details", { valid, user, data });
   };
-  
+
+  useEffect(() => {
+    async function fetchData() {
+      const data1 = await getuser(data.userID);
+      setUser(data1);
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <View style={styles.groupContainer}>
@@ -18,8 +44,8 @@ const BlockInValid = ({navigation}) => {
               source={require("../assets/icon-l1.png")}
             />
             <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={styles.caption1}>Amanda is valid visitor.</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>In 10:10 PM</Text>
+              <Text style={styles.caption1}>There is one invalid visitor.</Text>
+              <Text style={[styles.subcaption1, styles.mt2]}>In {data.time}</Text>
             </View>
           </View>
           <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
@@ -34,12 +60,21 @@ const BlockInValid = ({navigation}) => {
     </>
   );
 };
-const BlockValid = ({navigation }) => {
-  const valid = true
+const BlockValid = ({ navigation, data }) => {
+  const valid = true;
+  const [user, setUser] = useState({});
   const onPressButton = () => {
-    return navigation.navigate('Details', {valid})
+    return navigation.navigate("Details", { valid, user, data});
   };
-  
+
+  useEffect(() => {
+    async function fetchData() {
+      const data1 = await getuser(data.userID);
+      setUser(data1);
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <View style={styles.groupContainer}>
@@ -51,8 +86,8 @@ const BlockValid = ({navigation }) => {
               source={require("../assets/icon-l.png")}
             />
             <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={styles.caption1}>Amanda is valid visitor.</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>In 10:10 PM</Text>
+              <Text style={styles.caption1}>{user.ten} is valid visitor.</Text>
+              <Text style={[styles.subcaption1, styles.mt2]}>In {data.time}</Text>
             </View>
           </View>
           <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
@@ -67,12 +102,46 @@ const BlockValid = ({navigation }) => {
     </>
   );
 };
-const AccessHistory = ({navigation}) => {
+async function getAllHistory() {
+  try {
+    const response = await axios.get("http://192.168.1.100:4000/history");
+    return response.data.historys;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+const AccessHistory = ({ navigation }) => {
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getAllHistory();
+      setHistory(data);
+    }
+    fetchData();
+  }, []);
   return (
     <View style={styles.accessHistory}>
       <ScrollView style={styles.body}>
-        <BlockValid navigation={navigation}/>
-        <BlockInValid navigation={navigation}/>
+        {history.map((historyitem, index) => {
+          if (historyitem.valid)
+            return (
+              <BlockValid
+                navigation={navigation}
+                data={historyitem}
+                key={index}
+              />
+            );
+          else
+            return (
+              <BlockInValid
+                navigation={navigation}
+                data={historyitem}
+                key={index}
+              />
+            );
+        })}
       </ScrollView>
     </View>
   );

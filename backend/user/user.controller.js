@@ -30,6 +30,20 @@ class userController {
       }
     });
   };
+
+  getUserById = async (req, res) => {
+    const userId = req.params.id; 
+    try {
+      const user = await userModel.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" }); 
+      }
+      res.json(user);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server error" }); // Nếu xảy ra lỗi, trả về lỗi 500 Internal Server Error
+    }
+  };
 }
 
 module.exports = new userController();
