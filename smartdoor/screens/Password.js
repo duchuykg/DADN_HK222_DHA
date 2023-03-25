@@ -12,24 +12,18 @@ import {
   Alert,
 } from "react-native";
 
-const Login = ({ navigation }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const Password = ({ navigation }) => {
+  const [email, setEmail] = useState("");
 
-  const handleLogin = () => {
+  const handleReset = () => {
     // Check if the username and password are valid
 
-    return navigation.navigate('Main')
+    return navigation.navigate('Login')
     // if (username === "admin" && password === "password") {
     //     return navigation.navigate('Main')
     // } else {
     //   Alert.alert("Invalid credentials", "Please enter valid username and password");
     // }
-  };
-
-  const handleForgot = () => {
-
-    return navigation.navigate('Password')
   };
 
   return (
@@ -38,39 +32,21 @@ const Login = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.content}>
         <Image style={styles.logo} source={require("../assets/logo1.png")} />
 
-        <Text style={styles.textlogin}>LOGIN</Text>
             
         <View style={styles.form}>
           <TextInput
             style={styles.input}
-            placeholder="Tên đăng nhập"
-            value={username}
-            onChangeText={setUsername}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
           />
         </View>
 
-        <View style={styles.form1}>
-        <TextInput
-            style={styles.input}
-            placeholder="Mật khẩu"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
-          />
-          <TouchableOpacity onPress={handleForgot}>
-            <View>
-              <Text style={[styles.caption2 ]}>Forgot PassWord</Text>
-            </View>
-            </TouchableOpacity>
-        
-        </View>
-        
-        
+       
 
         <View style={styles.form2}>
-        
-          <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Login</Text>
+          <TouchableOpacity style={styles.button} onPress={handleReset}>
+            <Text style={styles.buttonText}>Reset PassWord</Text>
           </TouchableOpacity>
         </View>
 
@@ -161,11 +137,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     bottom: 60,
   },
-  caption2: {
-    color: 'white',
-    fontWeight: "bold",
-    textAlign: 'right',
-  }
 });
 
-export default Login;
+export default Password;

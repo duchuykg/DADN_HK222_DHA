@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Login from "./screens/Login";
+import Password from "./screens/Password";
+
 
 import Home from "./screens/Home";
 import Info from "./screens/Info";
@@ -29,6 +31,7 @@ function LoginStackScreen() {
   return (
     <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
       <HistoryStack.Screen name="Login" component={Login} />
+      <HistoryStack.Screen name="Password" component={Password} />
       <HistoryStack.Screen name="Main" component={Screen} />
     </HistoryStack.Navigator>
   );
