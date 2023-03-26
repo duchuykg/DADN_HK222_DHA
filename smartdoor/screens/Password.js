@@ -32,7 +32,8 @@ const Password = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.content}>
         <Image style={styles.logo} source={require("../assets/logo1.png")} />
 
-            
+        <Text style={styles.textlogin}>RESET PASSWORD</Text>
+
         <View style={styles.form}>
           <TextInput
             style={styles.input}
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "#fff",
     borderRadius: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 25,
   },
   button: {
     width: "100%",
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   },
   textlogin: {
     color: 'white',
-    fontSize: 40,
+    fontSize: 34,
     fontWeight: "bold",
     bottom: 60,
   },

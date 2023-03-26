@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "#fff",
     borderRadius: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 25,
   },
   button: {
     width: "100%",
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 40,
     fontWeight: "bold",
-    bottom: 60,
+    bottom: 30,
   },
   caption2: {
     color: 'white',

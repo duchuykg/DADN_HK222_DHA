@@ -1,8 +1,8 @@
 const historyModel = require("./history.model");
 
 class historyController {
-  getAllhistory(request, respond) {
-    historyModel.find((error, historys) => {
+  async getAllhistory(request, respond) {
+    await historyModel.find((error, historys) => {
       if (error) {
         console.log(error);
       }
