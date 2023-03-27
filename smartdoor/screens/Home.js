@@ -6,6 +6,9 @@ const Home = ({navigation }) => {
   const onPressButton = () => {
     return navigation.navigate('Details')
   };
+  const onPressChangePW = () => {
+    return navigation.navigate('Change')
+  };
   
 
   
@@ -51,7 +54,7 @@ const Home = ({navigation }) => {
               <Text style={[styles.caption1 ]}>Change password</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
+          <TouchableOpacity style={styles.listConfirm2} onPress={onPressChangePW}>
             <Image
               style={styles.iconL1}
               resizeMode="cover"

@@ -165,7 +165,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: "bold",
     textAlign: 'right',
-  }
+  },
+
 });
 
 export default Login;

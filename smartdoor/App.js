@@ -11,6 +11,7 @@ import Password from "./screens/Password";
 
 import Home from "./screens/Home";
 import Info from "./screens/Info";
+import ChangePW from "./screens/ChangePW";
 
 import AccessHistory from "./screens/AccessHistory";
 import DetailAccessHistory from "./screens/DetailAccessHistory";
@@ -42,6 +43,7 @@ function HomeStackScreen() {
     <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
       <HistoryStack.Screen name="Homes" component={Home} />
       <HistoryStack.Screen name="Details" component={DetailUser} />
+      <HistoryStack.Screen name="Change" component={ChangePW} />
     </HistoryStack.Navigator>
   );
 }
