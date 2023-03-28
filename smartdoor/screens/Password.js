@@ -26,32 +26,60 @@ const Password = ({ navigation }) => {
     // }
   };
 
+  const handleHelp = () => {
+    return navigation.navigate('Password')
+  };
+  const handleContact = () => {
+    return navigation.navigate('Password')
+  };
+  const handleAboutUs = () => {
+    return navigation.navigate('Password')
+  };
+
   return (
     <>
-    <ImageBackground style={styles.container} source={require("../assets/bg.png")}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Image style={styles.logo} source={require("../assets/logo1.png")} />
+      <ImageBackground style={styles.container} source={require("../assets/bg.png")}>
+        <ScrollView contentContainerStyle={styles.content}>
+          <Image style={styles.logo} source={require("../assets/logo1.png")} />
 
-        <Text style={styles.textlogin}>RESET PASSWORD</Text>
+          <Text style={styles.textlogin}>RESET PASSWORD</Text>
 
-        <View style={styles.form}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-          />
-        </View>
+          <View style={styles.form}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
 
-       
+        
 
-        <View style={styles.form2}>
-          <TouchableOpacity style={styles.button} onPress={handleReset}>
-            <Text style={styles.buttonText}>Reset PassWord</Text>
+          <View style={styles.form2}>
+            <TouchableOpacity style={styles.button} onPress={handleReset}>
+              <Text style={styles.buttonText}>Reset PassWord</Text>
+            </TouchableOpacity>
+          </View>
+
+        </ScrollView>
+
+        <View style={styles.form3}>
+          <TouchableOpacity onPress={handleHelp} style={styles.helpcontact}>
+            <View>
+              <Text style={[styles.caption3 ]}>Help</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleContact} style={styles.helpcontact}>
+            <View>
+              <Text style={[styles.caption3 ]}>Contact</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleAboutUs} style={styles.helpcontact}>
+            <View>
+              <Text style={[styles.caption3 ]}>About Us</Text>
+            </View>
           </TouchableOpacity>
         </View>
-
-      </ScrollView>
       </ImageBackground>
     </>
   );
@@ -108,6 +136,24 @@ const styles = StyleSheet.create({
     width: "100%",
     
     borderRadius: 20,
+  },
+
+  form3: {
+    bottom: 50,
+    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: "center",
+  },
+
+  caption3: {
+    color: 'gray',
+    fontWeight: "bold",
+  },
+
+  helpcontact: {
+    marginLeft: 20, 
+
   },
 
   input: {

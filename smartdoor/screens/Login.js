@@ -19,16 +19,24 @@ const Login = ({ navigation }) => {
   const handleLogin = () => {
     // Check if the username and password are valid
 
-    return navigation.navigate('Main')
-    // if (username === "admin" && password === "password") {
-    //     return navigation.navigate('Main')
-    // } else {
-    //   Alert.alert("Invalid credentials", "Please enter valid username and password");
-    // }
+    // return navigation.navigate('Main')
+    if (username === "1" && password === "1") {
+        return navigation.navigate('Main')
+    } else {
+      Alert.alert("Invalid credentials", "Tên đăng nhập: 1; Mật khẩu: 1");
+    }
   };
 
   const handleForgot = () => {
-
+    return navigation.navigate('Password')
+  };
+  const handleHelp = () => {
+    return navigation.navigate('Password')
+  };
+  const handleContact = () => {
+    return navigation.navigate('Password')
+  };
+  const handleAboutUs = () => {
     return navigation.navigate('Password')
   };
 
@@ -61,20 +69,36 @@ const Login = ({ navigation }) => {
             <View>
               <Text style={[styles.caption2 ]}>Forgot PassWord</Text>
             </View>
-            </TouchableOpacity>
+          </TouchableOpacity>
         
         </View>
         
-        
-
         <View style={styles.form2}>
-        
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
-        </View>
+        </View>        
 
       </ScrollView>
+
+      <View style={styles.form3}>
+        <TouchableOpacity onPress={handleHelp} style={styles.helpcontact}>
+          <View>
+            <Text style={[styles.caption3 ]}>Help</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleContact} style={styles.helpcontact}>
+          <View>
+            <Text style={[styles.caption3 ]}>Contact</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleAboutUs} style={styles.helpcontact}>
+          <View>
+            <Text style={[styles.caption3 ]}>About Us</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      
       </ImageBackground>
     </>
   );
@@ -82,14 +106,15 @@ const Login = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   content: {
-  flexGrow: 1,
-  justifyContent: "center", // can giua theo truc y
-  alignItems: "center", // can giua theo truc x
-  padding: 20,
-},
-    container: {
-        flex: 1,
-    },
+    flexGrow: 1,
+    justifyContent: "center", // can giua theo truc y
+    alignItems: "center", // can giua theo truc x
+    padding: 20,
+  },
+
+  container: {
+      flex: 1,
+  },
 
   logo: {
     width: 260,
@@ -133,6 +158,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 
+  form3: {
+    bottom: 50,
+    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: "center",
+  },
+
   input: {
     width: "100%",
     maxWidth: 300,
@@ -166,6 +199,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: 'right',
   },
+
+  caption3: {
+    color: 'gray',
+    fontWeight: "bold",
+  },
+
+  helpcontact: {
+    marginLeft: 20, 
+
+  },
+
 
 });
 
