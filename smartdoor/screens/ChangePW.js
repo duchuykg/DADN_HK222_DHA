@@ -4,6 +4,9 @@ import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform, 
 import * as ImagePicker from "expo-image-picker";
 
 const ChangePW = () => {
+  const [currpass, setCurrpass] = useState("");
+  const [newpass, setNewpass] = useState("");
+  const [confirmpass, setConfirmpass] = useState("");
 
   return (
     <>
@@ -11,137 +14,70 @@ const ChangePW = () => {
           <ScrollView style={styles.scrollViewContent}>
             <Text style={styles.text}>Change Password</Text>
             <View style={styles.imageview}>
-                
-                    <Image
-                        source={require("../assets/Avatar.png")}
-                        style={styles.image1}
-                        resizeMode="contain"
-                    />
-                    
+              <Image
+                  source={require("../assets/Avatar.png")}
+                  style={styles.image1}
+                  resizeMode="contain"
+              />
+              <View style = {{flexDirection: "row", padding: 0, alignItems: "center", }}>
+                <Text style={{color: 'black', fontSize: 18, paddingHorizontal: 5, fontWeight: 'bold'}}>
+                    Amanda Doe
+                </Text>
+              </View>
+              <View style = {{flexDirection: "row", padding: 0, alignItems: "center", }}>
+                <Text style={{opacity: 0.5, fontSize: 14, paddingHorizontal: 0, fontWeight: 'bold'}}>
+                    amanda@gmail.com
+                </Text>
+              </View>
             </View>
-            <View style={styles.detailview}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  paddingVertical: 5,
-                  backgroundColor: "#fff",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    padding: 5,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 18,
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    Name
-                  </Text>
-                </View>
-                <View style={{ paddingHorizontal: 10 }}>
-                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
-                    placeholder="Enter User Name"
-                    placeholderTextColor="gray"
-                    >
-                  </TextInput>
-                </View>
+            
+            <View style={styles.content}>
+              <View style={styles.form}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Current password"
+                  value={currpass}
+                  onChangeText={setCurrpass}
+                />
               </View>
-              
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  paddingVertical: 5,
-                  backgroundColor: "#fff",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    padding: 5,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 18,
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    Acess Permissions
-                  </Text>
-                </View>
-                <View style={{ paddingHorizontal: 10 }}>
-                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
-                    placeholder="Add Door"
-                    placeholderTextColor="gray"
-                    >
-                  </TextInput>
-                </View>
-              </View>
+            </View>
 
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  paddingVertical: 5,
-                  backgroundColor: "#fff",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    padding: 5,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 18,
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    Note
-                  </Text>
-                </View>
-                <View style={{ paddingHorizontal: 10 }}>
-                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
-                    placeholder="Nothing about user"
-                    placeholderTextColor="gray"
-                    >
-                  </TextInput>
-                </View>
+            <View style={styles.content}>
+              <View style={styles.form}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="New password"
+                  value={newpass}
+                  onChangeText={setNewpass}
+                />
               </View>
+            </View>
 
-              {/* Button */}
+            <View style={styles.content}>
+              <View style={styles.form}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Confirm password"
+                  value={confirmpass}
+                  onChangeText={setConfirmpass}
+                />
               </View>
+            </View>
                 
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button, styles.editButton]}>
-                <View>
-                  <View style={{
-                      flexDirection: "row",
-                      padding: 5,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={styles.buttonText}> Change </Text>
-                  </View>
-                  </View>
-                </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={[styles.button, styles.editButton]}>
+              <View>
+                <View style={{
+                    flexDirection: "row",
+                    padding: 5,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={styles.buttonText}> Change </Text>
                 </View>
+                </View>
+              </TouchableOpacity>
+              </View>
           </ScrollView>
 
         </View>
@@ -278,7 +214,38 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
 
-  },  
+  }, 
+  content: {
+    flexGrow: 1,
+    paddingVertical: 6,
+    justifyContent: "center", // can giua theo truc y
+    alignItems: "center", // can giua theo truc x
+  },
+  form: {
+    width: "100%",
+    maxWidth: 300,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    
+    
+  },
+  input: {
+        alignItems: "center", // can giua theo truc x
+
+    width: "100%",
+    maxWidth: 300,
+    height: 50,
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    paddingHorizontal: 25,
+  },
 
 });
 
