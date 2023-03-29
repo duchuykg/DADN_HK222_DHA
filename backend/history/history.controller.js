@@ -14,7 +14,7 @@ class historyController {
     }
   }
 
-  newhistory = function (req, res) {
+  newhistory = async function (req, res) {
     const { lockID, userID, adminID, time, open, valid } = req.body;
     const history = new historyModel({
       lockID,
@@ -24,13 +24,12 @@ class historyController {
       open,
       valid,
     });
-    history.save(function (error) {
-      if (error) {
-        res.status(500).send(error);
-      } else {
-        res.status(200).send("New history created!");
-      }
-    });
+    try {
+      await history.save();
+      res.status(200).send("New history created!");
+    } catch (error) {
+      res.status(500).send(error);
+    }
   };
 }
 

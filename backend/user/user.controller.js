@@ -17,20 +17,19 @@ class userController {
       });
   }
 
-  newuser = function (req, res) {
+  newuser = async function (req, res) {
     const { ten, thongTin, anhDaiDien } = req.body;
     const user = new userModel({
       ten,
       thongTin,
       anhDaiDien,
     });
-    user.save(function (error) {
-      if (error) {
-        res.status(500).send(error);
-      } else {
-        res.status(200).send("New user created!");
-      }
-    });
+    try {
+      await user.save();
+      res.status(200).send("New user created!");
+    } catch (error) {
+      res.status(500).send(error);
+    }
   };
 
   getUserById = async (req, res) => {

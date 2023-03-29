@@ -32,7 +32,7 @@ const DoorBlock = ({ navigation, lock }) => {
 };
 async function getAlldoor() {
   try {
-    const response = await axios.get("http://192.168.1.100:4000/lock");
+    const response = await axios.get("https://dhabackend.onrender.com/lock");
     return response.data.locks;
   } catch (error) {
     console.error(error);
