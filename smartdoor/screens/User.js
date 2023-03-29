@@ -1,15 +1,8 @@
 import * as React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  TextInput,
-} from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+
 const UserBlock = ({ navigation, user }) => {
   const onPressButton = () => {
     return navigation.navigate("Details", {user});

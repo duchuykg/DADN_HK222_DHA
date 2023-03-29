@@ -1,14 +1,8 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+
 async function getuser(id) {
   try {
     const response = await axios.get("http://192.168.43.105:4000/user/" + id);

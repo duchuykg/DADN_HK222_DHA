@@ -1,13 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
 import { Alert } from "react-native";
 
 const DetailDoor = ({ navigation, route }) => {

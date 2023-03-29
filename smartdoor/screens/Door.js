@@ -2,15 +2,8 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  TextInput,
-} from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+
 const DoorBlock = ({ navigation, lock }) => {
   const onPressButton = () => {
     return navigation.navigate("Details", {lock});

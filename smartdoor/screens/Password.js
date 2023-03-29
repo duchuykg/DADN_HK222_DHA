@@ -1,16 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
 import { ImageBackground } from "react-native";
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-} from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+
 
 const Password = ({ navigation }) => {
   const [email, setEmail] = useState("");

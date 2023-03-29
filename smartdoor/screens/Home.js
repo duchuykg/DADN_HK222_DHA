@@ -10,9 +10,6 @@ const Home = ({navigation }) => {
     return navigation.navigate('Change')
   };
   
-
-  
-  
   return (
     <>
       <View style={styles.groupContainer}>

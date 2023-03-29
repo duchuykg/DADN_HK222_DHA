@@ -10,7 +10,7 @@ const Info = ({navigation }) => {
   return (
     <>
 
-<View style={styles.groupContainer1}>
+      <View style={styles.groupContainer1}>
         <View style={styles.listConfirmGroup}>
           <View style={styles.listConfirm1}>
             <View style={[styles.masterList1, styles.ml12]}>
