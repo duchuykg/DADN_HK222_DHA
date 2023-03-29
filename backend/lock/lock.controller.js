@@ -15,19 +15,18 @@ class  lockController {
       });
   }
 
-  newlock = function(req, res) {
+  newlock = async function(req, res) {
     const { ten, viTri } = req.body;
     const lock = new lockModel({
       ten,
       viTri
     });
-    lock.save(function(error) {
-      if (error) {
-        res.status(500).send(error);
-      } else {
-        res.status(200).send('New lock created!');
-      }
-    });
+    try {
+      await lock.save();
+      res.status(200).send('New lock created!');
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
 
   getLockById = async (req, res) => {

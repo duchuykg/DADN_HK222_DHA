@@ -1,8 +1,10 @@
 const adminModel = require("./admin.model");
 
-class  adminController {
-  getAllAdmin = function(request, respond) {
-    adminModel.find().exec()
+class adminController {
+  getAllAdmin = function (request, respond) {
+    adminModel
+      .find()
+      .exec()
       .then((admins) => {
         respond.status(200).json({
           success: true,
@@ -13,23 +15,22 @@ class  adminController {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
-  newadmin = function(req, res) {
+  newadmin = async function (req, res) {
     const { userID, taiKhoan, matKhau } = req.body;
     const admin = new adminModel({
       userID,
       taiKhoan,
-      matKhau
+      matKhau,
     });
-    admin.save(function(error) {
-      if (error) {
-        res.status(500).send(error);
-      } else {
-        res.status(200).send('New admin created!');
-      }
-    });
-  }
+    try {
+      await admin.save();
+      res.status(200).send("New admin created!");
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
 }
 
 module.exports = new adminController();

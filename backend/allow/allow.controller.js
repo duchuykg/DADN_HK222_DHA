@@ -15,22 +15,21 @@ class allowController {
       });
   }
 
-  newallow(request, respond) {
+  newallow = async function (request, respond) {
     const { userID, lockID } = request.body;
-
+  
     const allow = new allowModel({
       userID,
       lockID,
     });
-
-    allow.save(function (error) {
-      if (error) {
-        respond.status(500).send(error);
-      } else {
-        respond.status(200).send("New allow created!");
-      }
-    });
-  }
+  
+    try {
+      await allow.save();
+      respond.status(200).send("New allow created!");
+    } catch (error) {
+      respond.status(500).send(error);
+    }
+  };
 }
 
 module.exports = new allowController();

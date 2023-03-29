@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput}
 
 async function getuser(id) {
   try {
-    const response = await axios.get("http://192.168.43.105:4000/user/" + id);
+    const response = await axios.get("https://dhabackend.onrender.com/user/" + id);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -98,7 +98,7 @@ const BlockValid = ({ navigation, data }) => {
 };
 async function getAllHistory() {
   try {
-    const response = await axios.get("http://192.168.43.105:4000/history");
+    const response = await axios.get("https://dhabackend.onrender.com/history");
     console.log(response.data);
     return response.data.historys;
   } catch (error) {
