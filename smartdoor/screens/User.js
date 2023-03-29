@@ -39,7 +39,7 @@ const UserBlock = ({ navigation, user }) => {
 };
 async function getAlluser() {
   try {
-    const response = await axios.get("http://192.168.1.100:4000/user");
+    const response = await axios.get("https://dhabackend.onrender.com/user");
     return response.data.users;
   } catch (error) {
     console.error(error);
