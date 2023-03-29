@@ -1,18 +1,18 @@
 const adminModel = require("./admin.model");
 
 class  adminController {
-  getAllAdmin(request, respond) {
-    adminModel.find((error, admins) => {
-      if (error) {
+  getAllAdmin = function(request, respond) {
+    adminModel.find().exec()
+      .then((admins) => {
+        respond.status(200).json({
+          success: true,
+          message: "Done!",
+          admins: admins,
+        });
+      })
+      .catch((error) => {
         console.log(error);
-      }
-
-      respond.status(200).json({
-        success: true,
-        message: "Done!",
-        admins: admins,
       });
-    });
   }
 
   newadmin = function(req, res) {

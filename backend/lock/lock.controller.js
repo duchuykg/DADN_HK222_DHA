@@ -2,17 +2,17 @@ const lockModel = require("./lock.model");
 
 class  lockController {
   getAlllock(request, respond) {
-    lockModel.find((error, locks) => {
-      if (error) {
+    lockModel.find().exec()
+      .then((locks) => {
+        respond.status(200).json({
+          success: true,
+          message: "Done!",
+          locks: locks,
+        });
+      })
+      .catch((error) => {
         console.log(error);
-      }
-
-      respond.status(200).json({
-        success: true,
-        message: "Done!",
-        locks: locks,
       });
-    });
   }
 
   newlock = function(req, res) {

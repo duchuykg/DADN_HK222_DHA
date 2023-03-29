@@ -2,17 +2,16 @@ const historyModel = require("./history.model");
 
 class historyController {
   async getAllhistory(request, respond) {
-    await historyModel.find((error, historys) => {
-      if (error) {
-        console.log(error);
-      }
-
+    try {
+      const historys = await historyModel.find().exec();
       respond.status(200).json({
         success: true,
         message: "Done!",
         historys: historys,
       });
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   newhistory = function (req, res) {

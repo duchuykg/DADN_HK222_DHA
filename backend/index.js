@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 require('dotenv').config();
 
 const mongoDB_url =
-  "mongodb+srv://mauduckg:mauduckg@chatapp.mucku7a.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://mauduckg:mauduckg@cluster0.liowy3n.mongodb.net/test";
 mongoose
   .connect(mongoDB_url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {

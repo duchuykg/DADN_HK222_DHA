@@ -4,17 +4,17 @@ const lockModel = require("../lock/lock.model");
 
 class userController {
   getAllUser(request, respond) {
-    userModel.find((error, users) => {
-      if (error) {
+    userModel.find().exec()
+      .then((users) => {
+        respond.status(200).json({
+          success: true,
+          message: "Done!",
+          users: users,
+        });
+      })
+      .catch((error) => {
         console.log(error);
-      }
-
-      respond.status(200).json({
-        success: true,
-        message: "Done!",
-        users: users,
       });
-    });
   }
 
   newuser = function (req, res) {
