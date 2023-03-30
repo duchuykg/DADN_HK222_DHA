@@ -103,7 +103,7 @@ function Screen(){
               iconName = focused ? "time" : "time-outline";
             } else if (route.name === "User") {
               iconName = focused ? "person" : "person-outline";
-            } else if (route.name === "Clock") {
+            } else if (route.name === "Lock") {
               iconName = focused ? "lock-closed" : "lock-closed-outline";
             } else if (route.name === "Info") {
               iconName = focused ? "ios-information-circle"
@@ -141,7 +141,7 @@ function Screen(){
         <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="History" component={HistoryStackScreen} />
         <Tab.Screen name="User" component={UserStackScreen} />
-        <Tab.Screen name="Clock" component={DoorStackScreen} />
+        <Tab.Screen name="Lock" component={DoorStackScreen} />
         <Tab.Screen name="Info" component={InfoStackScreen} tabBarButton={() => {}}/>
       </Tab.Navigator>
 
