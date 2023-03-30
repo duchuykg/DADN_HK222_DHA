@@ -11,12 +11,12 @@ const Login = ({ navigation }) => {
   const handleLogin = () => {
     // Check if the username and password are valid
 
-    // return navigation.navigate('Main')
-    if (username === "1" && password === "1") {
-        return navigation.navigate('Main')
-    } else {
-      Alert.alert("Invalid credentials", "Tên đăng nhập: 1; Mật khẩu: 1");
-    }
+    return navigation.navigate('Main')
+    // if (username === "1" && password === "1") {
+    //     return navigation.navigate('Main')
+    // } else {
+    //   Alert.alert("Invalid credentials", "Tên đăng nhập: 1; Mật khẩu: 1");
+    // }
   };
 
   const handleForgot = () => {

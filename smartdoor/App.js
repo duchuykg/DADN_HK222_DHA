@@ -8,7 +8,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Login from "./screens/Login";
 import Password from "./screens/Password";
 
-
 import Home from "./screens/Home";
 import Info from "./screens/Info";
 import ChangePW from "./screens/ChangePW";
@@ -154,7 +153,7 @@ export default function App() {
     <NavigationContainer>
       <HistoryStack.Navigator>
       <HistoryStack.Screen
-        name="Login"
+        name="Init"
         component={LoginStackScreen}
         options={{ headerShown: false }}
       />
