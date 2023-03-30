@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const NewDoor = () => {
     const [status, setStatus] = useState("Close");
@@ -169,10 +170,7 @@ const NewDoor = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Image
-                      source={require("../assets/Add.png")}
-                      style={styles.checkicon}
-                    />
+                    <Ionicons name={"add-circle-outline"} size={20} ></Ionicons>
                     <Text style={styles.buttonText}> Add </Text>
                   </View>
                   </View>
@@ -300,12 +298,12 @@ const styles = StyleSheet.create({
   },
   buttonTextB: {
     color: '#007AFF',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   buttonText: {
     color: 'black',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   box: {

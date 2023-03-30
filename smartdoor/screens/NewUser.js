@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const NewUser = () => {
     const [image, setImage] = useState(null);
@@ -166,10 +167,7 @@ const NewUser = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Image
-                      source={require("../assets/Add.png")}
-                      style={styles.checkicon}
-                    />
+                    <Ionicons name={"add-circle-outline"} size={20} ></Ionicons>
                     <Text style={styles.buttonText}> Add </Text>
                   </View>
                   </View>
@@ -212,8 +210,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image1: {
-    width: 200,
-    height: 200,
+    width: 170,
+    height: 170,
     borderRadius: 32,
     alignItems: "center",
   },
@@ -295,12 +293,12 @@ const styles = StyleSheet.create({
   },
   buttonTextB: {
     color: '#007AFF',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   buttonText: {
     color: 'black',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   box: {

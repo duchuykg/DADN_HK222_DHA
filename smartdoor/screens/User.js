@@ -2,6 +2,7 @@ import * as React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const UserBlock = ({ navigation, user }) => {
   const onPressButton = () => {
@@ -98,10 +99,7 @@ const Doors = ({ navigation }) => {
     <View style={styles.accessHistory}>
       <View style={styles.searchfilter}>
         <View style={styles.search}>
-          <Image
-            source={require("../assets/search.png")}
-            style={styles.searchIcon}
-          />
+          <Ionicons name={"search-outline"} size={26} color={"gray"}></Ionicons>
           <TextInput
             style={styles.searchInput}
             placeholder="Search ..."
@@ -114,10 +112,7 @@ const Doors = ({ navigation }) => {
           style={styles.filterButton}
           onPress={handleFilterPress}
         >
-          <Image
-            source={require("../assets/filters.png")}
-            style={styles.filterIcon}
-          />
+          <Ionicons name={"color-filter-outline"} size={26} ></Ionicons>
         </TouchableOpacity>
       </View>
 

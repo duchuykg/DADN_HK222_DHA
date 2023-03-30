@@ -2,6 +2,7 @@ import * as React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 async function getlock(id) {
   try {
@@ -162,10 +163,7 @@ const DetailUser = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Image
-                    source={require("../assets/pen.png")}
-                    style={styles.checkicon}
-                  />
+                  <Ionicons name={"pencil-sharp"} size={20} color={"#007AFF"}></Ionicons>
                   <Text style={styles.buttonTextB}> Edit </Text>
                 </View>
               </View>
@@ -179,10 +177,7 @@ const DetailUser = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Image
-                    source={require("../assets/trash.png")}
-                    style={styles.checkicon1}
-                  />
+                  <Ionicons name={"trash-outline"} size={20} ></Ionicons>
                   <Text style={styles.buttonText}> Delete </Text>
                 </View>
               </View>
@@ -223,8 +218,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image1: {
-    width: 200,
-    height: 200,
+    width: 170,
+    height: 170,
     borderRadius: 32,
     alignItems: "center",
   },
@@ -304,12 +299,12 @@ const styles = StyleSheet.create({
   },
   buttonTextB: {
     color: "#007AFF",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
   },
   buttonText: {
     color: "black",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

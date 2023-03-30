@@ -2,9 +2,11 @@ import * as React from "react";
 import { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { Image, StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 const Home = ({navigation }) => {
   const onPressButton = () => {
-    return navigation.navigate('Details')
+    return navigation.navigate('Login')
   };
   const onPressChangePW = () => {
     return navigation.navigate('Change')
@@ -33,10 +35,7 @@ const Home = ({navigation }) => {
                       alignItems: "center",
                     }}
                   >
-                    <Image
-                      source={require("../assets/pen.png")}
-                      style={styles.iconL2}
-                    />
+                    <Ionicons name={"pencil-sharp"} size={20} color={"#007AFF"}></Ionicons>
                     <Text style={styles.buttonTextB}> Edit </Text>
                   </View>
                   </View>
@@ -291,7 +290,7 @@ const styles = StyleSheet.create({
   },
   buttonTextB: {
     color: '#007AFF',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   

@@ -2,6 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
 import { Alert } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 
 const DetailDoor = ({ navigation, route }) => {
   const { lock } = route.params;
@@ -165,10 +167,7 @@ const DetailDoor = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Image
-                    source={require("../assets/unlock.png")}
-                    style={styles.checkicon}
-                  />
+                  <Ionicons name={"lock-open"} size={20}></Ionicons>
                   <Text style={styles.buttonText}> Open Door </Text>
                 </View>
               </View>
@@ -182,10 +181,7 @@ const DetailDoor = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Image
-                    source={require("../assets/lock.png")}
-                    style={styles.checkicon1}
-                  />
+                  <Ionicons name={"lock-closed"} size={20}></Ionicons>
                   <Text style={styles.buttonText}> Close Door </Text>
                 </View>
               </View>
@@ -204,10 +200,7 @@ const DetailDoor = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Image
-                    source={require("../assets/pen.png")}
-                    style={styles.checkicon}
-                  />
+                  <Ionicons name={"pencil-sharp"} size={20} color={"#007AFF"}></Ionicons>
                   <Text style={styles.buttonTextB}> Edit </Text>
                 </View>
               </View>
@@ -241,10 +234,7 @@ const DetailDoor = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Image
-                    source={require("../assets/trash.png")}
-                    style={styles.checkicon1}
-                  />
+                  <Ionicons name={"trash-outline"} size={20} ></Ionicons>
                   <Text style={styles.buttonText}> Delete </Text>
                 </View>
               </View>
@@ -257,14 +247,6 @@ const DetailDoor = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  checkicon: {
-    width: 18,
-    height: 18,
-  },
-  checkicon1: {
-    width: 18,
-    height: 18,
-  },
   image: {
     width: 64,
     height: 64,
@@ -367,12 +349,12 @@ const styles = StyleSheet.create({
   },
   buttonTextB: {
     color: "#007AFF",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
   },
   buttonText: {
     color: "black",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
   },
   box: {
