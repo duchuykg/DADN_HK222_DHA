@@ -6,6 +6,15 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Home = ({navigation }) => {
   const onPressButton = () => {
+    return navigation.navigate('Info')
+  };
+  const handleEdit = () => {
+    return navigation.navigate('Details')
+  };
+  const handleNotification = () => {
+    return navigation.navigate('History')
+  };
+  const handleLogout = () => {
     return navigation.navigate('Login')
   };
   const onPressChangePW = () => {
@@ -27,7 +36,7 @@ const Home = ({navigation }) => {
               <Text style={[styles.subcaption1, styles.mt2]}>Ca sĩ Hàn Quốc</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
+          <TouchableOpacity style={styles.listConfirm2} onPress={handleEdit}>
                 <View>
                   <View style={{
                       flexDirection: "row",
@@ -67,7 +76,7 @@ const Home = ({navigation }) => {
               <Text style={[styles.caption1 ]}>Notification</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
+          <TouchableOpacity style={styles.listConfirm2} onPress={handleNotification}>
             <Image
               style={styles.iconL1}
               resizeMode="cover"
@@ -96,7 +105,7 @@ const Home = ({navigation }) => {
 
       <View style={styles.groupContainer1}>
         <View style={styles.listConfirmGroup}>
-            <TouchableOpacity style={styles.listConfirm1} onPress={onPressButton}>
+            <TouchableOpacity style={styles.listConfirm1} onPress={handleLogout}>
             <View style={[styles.masterList1, styles.ml12]}>
               <Text style={[styles.caption2 ]}>Logout</Text>
             </View>

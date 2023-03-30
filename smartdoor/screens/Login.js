@@ -35,61 +35,72 @@ const Login = ({ navigation }) => {
   return (
     <>
     <ImageBackground style={styles.container} source={require("../assets/bg.png")}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Image style={styles.logo} source={require("../assets/logo1.png")} />
+      <ScrollView contentContainerStyle={styles.container1}>
 
-        <Text style={styles.textlogin}>LOGIN</Text>
-            
-        <View style={styles.form}>
+        <View style={styles.formlogo}>          
+          <Image style={styles.logo} source={require("../assets/logo1.png")} />
+        </View>
+
+        <View style={styles.content1}>
+          <Text style={styles.textlogin}>LOGIN</Text>
+
+        
+
+          <View style={styles.form}>
+            <TextInput
+              style={styles.input}
+              placeholder="Tên đăng nhập"
+              value={username}
+              onChangeText={setUsername}
+            />
+          </View>
+
+          <View style={styles.form1}>
           <TextInput
-            style={styles.input}
-            placeholder="Tên đăng nhập"
-            value={username}
-            onChangeText={setUsername}
-          />
+              style={styles.input}
+              placeholder="Mật khẩu"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={setPassword}
+            />
+            <TouchableOpacity onPress={handleForgot}>
+              <View>
+                <Text style={[styles.caption2 ]}>Forgot PassWord</Text>
+              </View>
+            </TouchableOpacity>    
+          </View>
         </View>
 
-        <View style={styles.form1}>
-        <TextInput
-            style={styles.input}
-            placeholder="Mật khẩu"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
-          />
-          <TouchableOpacity onPress={handleForgot}>
-            <View>
-              <Text style={[styles.caption2 ]}>Forgot PassWord</Text>
-            </View>
-          </TouchableOpacity>
-        
-        </View>
-        
-        <View style={styles.form2}>
-          <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-        </View>        
+        <View style={styles.content1}>
+          <View style={styles.form2}>
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+          </View>    
+        </View>    
 
+        <View style={styles.content}>
+          <View style={styles.form3}>
+            <TouchableOpacity onPress={handleHelp} style={styles.helpcontact}>
+              <View>
+                <Text style={[styles.caption3 ]}>Help</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleContact} style={styles.helpcontact}>
+              <View>
+                <Text style={[styles.caption3 ]}>Contact</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleAboutUs} style={styles.helpcontact}>
+              <View>
+                <Text style={[styles.caption3 ]}>About Us</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
       </ScrollView>
 
-      <View style={styles.form3}>
-        <TouchableOpacity onPress={handleHelp} style={styles.helpcontact}>
-          <View>
-            <Text style={[styles.caption3 ]}>Help</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleContact} style={styles.helpcontact}>
-          <View>
-            <Text style={[styles.caption3 ]}>Contact</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleAboutUs} style={styles.helpcontact}>
-          <View>
-            <Text style={[styles.caption3 ]}>About Us</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      
       
       </ImageBackground>
     </>
@@ -97,65 +108,84 @@ const Login = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  content: {
-    flexGrow: 1,
-    justifyContent: "center", // can giua theo truc y
-    alignItems: "center", // can giua theo truc x
-    padding: 20,
+
+
+  container1: {
+    flex: 1,
+    justifyContent: "space-between",
   },
 
   container: {
-      flex: 1,
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+  },
+
+  content: {
+    flexDirection: "row",
+    justifyContent: "center", // can giua theo truc y
+    alignItems: "center", // can giua theo truc x
+
+  },
+
+  content1: {
+    justifyContent: "center", // can giua theo truc y
+    alignItems: "center", // can giua theo truc x
+    padding: 5,
+
+  },
+  formlogo: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent:"center",
+    marginTop: 70,
+  
   },
 
   logo: {
     width: 260,
     height: 50,
     resizeMode: "contain",
-    position: "absolute",
-    top: 60,
-    marginBottom: 30,
+    // position: "absolute",
+    // top: 60,
+    // marginBottom: 30,
   },
+  form0: {
+    flexDirection: "row",
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "space-between",
+    
+  },
+
   form: {
+    flexDirection: "row",
+    marginTop: 25,
+    alignItems: "center",
     width: "100%",
     maxWidth: 300,
     borderRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+
   },
   form1: {
-    top: 40,
     width: "100%",
+    marginTop: 25,
     maxWidth: 300,
     borderRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    justifyContent: "space-between",
   },
   form2: {
-    top: 120,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     width: "100%",
-    
+    padding: 5,
     borderRadius: 20,
   },
 
   form3: {
-    bottom: 50,
-    alignItems: "center",
-    display: 'flex',
     flexDirection: 'row',
-    justifyContent: "center",
+    marginBottom: 30,
   },
 
   input: {
@@ -184,7 +214,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 40,
     fontWeight: "bold",
-    bottom: 30,
   },
   caption2: {
     color: 'white',

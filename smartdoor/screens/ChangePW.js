@@ -198,12 +198,12 @@ const styles = StyleSheet.create({
   },
   buttonTextB: {
     color: '#007AFF',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   buttonText: {
     color: 'black',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   box: {
