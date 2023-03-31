@@ -20,7 +20,7 @@ const DetailUser = ({ navigation, route }) => {
   const [lock, setLock] = useState([]);
 
   const handleEditPress = () => {
-    return navigation.navigate("Edit");
+    return navigation.navigate("Edit", {user});
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const DetailUser = ({ navigation, route }) => {
           
           <View style={styles.imageview}>
             <Image
-              source={require("../assets/Avatar4.png")}
+              source={{uri: user.anhDaiDien}}
               style={styles.image1}
               resizeMode="contain"
             />

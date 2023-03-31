@@ -5,9 +5,11 @@ import * as ImagePicker from "expo-image-picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const EditUser = () => {
-    const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null);
+
 
   useEffect(() => {
+
     (async () => {
       if (Platform.OS !== "web") {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();

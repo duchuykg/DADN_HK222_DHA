@@ -16,7 +16,7 @@ const UserBlock = ({ navigation, user }) => {
           <Image
             style={styles.iconL1}
             resizeMode="cover"
-            source={require("../assets/Avatar2.png")}
+            source={{uri: user.anhDaiDien}}
           />
           <View style={[styles.masterList1, styles.ml12]}>
             <Text style={[styles.caption1, { fontWeight: "bold" }]}>

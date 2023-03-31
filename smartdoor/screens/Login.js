@@ -1,24 +1,51 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { ImageBackground } from "react-native";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Alert} from "react-native";
 
+async function getAllAdmin() {
+  try {
+    const response = await axios.get("https://dhabackend.onrender.com/user" );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 const Login = ({ navigation }) => {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [login, setLogin] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      
+      const data = await getAllAdmin();
+      setLogin(data);
+    }
+    fetchData();
+  }, []);
 
   const handleLogin = () => {
-    // Check if the username and password are valid
 
-    return navigation.navigate('Main')
-    // if (username === "1" && password === "1") {
-    //     return navigation.navigate('Main')
-    // } else {
-    //   Alert.alert("Invalid credentials", "Tên đăng nhập: 1; Mật khẩu: 1");
+    return navigation.navigate('Main');
+    // let loginSuccess = false;
+    // login.map((adminitem) => {
+    //   if (username === adminitem.taiKhoan && password === adminitem.password) {
+    //     loginSuccess = true;
+    //     return navigation.navigate('Main');
+    //   } 
+    // });
+    // if (!loginSuccess) {
+    //   return navigation.navigate('Main');
+    // } 
+    // else {
+    //   Alert.alert('Tài khoản thử nghiệm: Tên đăng nhập: 1');
     // }
   };
-
+    
   const handleForgot = () => {
     return navigation.navigate('Password')
   };
@@ -42,7 +69,7 @@ const Login = ({ navigation }) => {
         </View>
 
         <View style={styles.content1}>
-          <Text style={styles.textlogin}>LOGIN</Text>
+          <Text style={styles.textlogin}>Login</Text>
 
         
 
@@ -73,6 +100,7 @@ const Login = ({ navigation }) => {
 
         <View style={styles.content1}>
           <View style={styles.form2}>
+            
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>

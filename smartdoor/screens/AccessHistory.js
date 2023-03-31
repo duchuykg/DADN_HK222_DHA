@@ -12,6 +12,7 @@ async function getuser(id) {
     throw error;
   }
 }
+
 const BlockInValid = ({ navigation, data }) => {
   const valid = false;
   const [user, setUser] = useState({});
