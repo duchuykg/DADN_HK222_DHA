@@ -6,7 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 async function getlock(id) {
   try {
-    const response = await axios.get("http://192.168.1.100:4000/user/" + id + "/lock");
+    const response = await axios.get("https://dhabackend.onrender.com/user/" + id + "/lock");
     console.log(response.data)
     return response.data;
   } catch (error) {

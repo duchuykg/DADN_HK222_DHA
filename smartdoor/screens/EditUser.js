@@ -3,13 +3,30 @@ import { useState, useEffect } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import axios from "axios";
 
-const EditUser = () => {
+async function getlock(id) {
+  try {
+    const response = await axios.get("https://dhabackend.onrender.com/user/" + id + "/lock");
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+const EditUser = ({ route}) => {
   const [image, setImage] = useState(null);
-
+  const { user } = route.params;
+  const [door, setDoor] = useState([]);
 
   useEffect(() => {
-
+    async function fetchData() {
+      const data1 = await getlock(user._id);
+      setDoor(data1);
+    }
+  
     (async () => {
       if (Platform.OS !== "web") {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -18,6 +35,8 @@ const EditUser = () => {
         }
       }
     })();
+  
+    fetchData();
   }, []);
 
     const pickImage = async () => {
@@ -43,7 +62,7 @@ const EditUser = () => {
                     <Image source={{ uri: image }} style={styles.image1} resizeMode="contain" />
                     ) : (
                     <Image
-                        source={require("../assets/Avatar.png")}
+                        source={{uri: user.anhDaiDien}}
                         style={styles.image1}
                         resizeMode="contain"
                     />
@@ -78,10 +97,8 @@ const EditUser = () => {
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
-                    placeholder="IU"
-                    placeholderTextColor="gray"
-                    >
+                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}>
+                      {user.ten}
                   </TextInput>
                 </View>
               </View>
@@ -113,11 +130,11 @@ const EditUser = () => {
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
-                    placeholder="Door 1, Door 2"
-                    placeholderTextColor="gray"
-                    >
-                  </TextInput>
+                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}>
+                  {door.map((lockitem) => {
+                    return lockitem.ten
+                  })}
+                </TextInput>
                 </View>
               </View>
 
@@ -148,10 +165,8 @@ const EditUser = () => {
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
-                    placeholder="Ca sĩ Hàn Quốc"
-                    placeholderTextColor="gray"
-                    >
+                  <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}>
+                    {user.thongTin}
                   </TextInput>
                 </View>
               </View>

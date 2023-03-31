@@ -3,7 +3,10 @@ import { useState } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const EditDoor = () => {
+
+const EditDoor = ({ route }) => {
+    const { lock } = route.params;
+
     const [status, setStatus] = useState("Close");
     const [backgroundColor, setBackgroundColor] = useState("#8a2be2");
     const [color, setColor] = useState("#FFF");
@@ -46,10 +49,8 @@ const EditDoor = () => {
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                  <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
-                    placeholder="Door 1"
-                    placeholderTextColor="gray"
-                    >
+                  <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}>
+                    {lock.ten}
                   </TextInput>
                 </View>
               </View>
@@ -116,11 +117,8 @@ const EditDoor = () => {
                   </Text>
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
-                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right" }}
-                    placeholder="North"
-                    placeholderTextColor="gray"
-                    >
-                  </TextInput>
+                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right" }}>
+                </TextInput>
                 </View>
               </View>
 
