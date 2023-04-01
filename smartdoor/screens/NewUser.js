@@ -3,9 +3,27 @@ import { useState, useEffect } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import axios from "axios";
+
 
 const NewUser = () => {
-    const [image, setImage] = useState(null);
+  const [name, setName] = useState("");
+  const [info, setInfo] = useState("");
+  const [img, setImg] = useState("");
+
+  // const handleAdd = () => {
+  //   axios.post("http://localhost:4000/user/login", request).then((respond) => {
+  //   axios
+  //     .post("https://dhabackend.onrender.com/user", { name, info, img })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -80,6 +98,7 @@ const NewUser = () => {
                 <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
                     placeholder="Enter User Name"
                     placeholderTextColor="gray"
+                    onChangeText={(text) => setName(text)}
                     >
                   </TextInput>
                 </View>
@@ -115,6 +134,7 @@ const NewUser = () => {
                 <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
                     placeholder="Add Door"
                     placeholderTextColor="gray"
+
                     >
                   </TextInput>
                 </View>
@@ -150,6 +170,7 @@ const NewUser = () => {
                 <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}
                     placeholder="Nothing about user"
                     placeholderTextColor="gray"
+                    onChangeText={(text) => setInfo(text)}
                     >
                   </TextInput>
                 </View>

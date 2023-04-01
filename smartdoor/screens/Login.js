@@ -15,21 +15,30 @@ async function getAllAdmin() {
 }
 
 const Login = ({ navigation }) => {
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [login, setLogin] = useState([]);
+  const [taiKhoan, setUsername] = useState("");
+  const [matKhau, setPassword] = useState("");
   useEffect(() => {
     async function fetchData() {
       
       const data = await getAllAdmin();
-      setLogin(data);
     }
     fetchData();
   }, []);
 
   const handleLogin = () => {
-
+    // let request = {
+    //   taiKhoan,
+    //   matKhau,
+    // };
+    // axios.post("https://dhabackend.onrender.com/admin/login", request).then((respond) => {
+      
+    //   if (respond.data.admin) {
+    //     localStorage.setItem('admin', respond.data.admin)
+    //     return navigation.navigate('Main');
+    //   } else {
+    //     Alert.alert('Tài khoản thử nghiệm: Tên đăng nhập: 1');
+    //   }
+    // });
     return navigation.navigate('Main');
     // let loginSuccess = false;
     // login.map((adminitem) => {
@@ -77,8 +86,7 @@ const Login = ({ navigation }) => {
             <TextInput
               style={styles.input}
               placeholder="Tên đăng nhập"
-              value={username}
-              onChangeText={setUsername}
+              onChangeText={(text) => setUsername(text)}
             />
           </View>
 
@@ -87,8 +95,7 @@ const Login = ({ navigation }) => {
               style={styles.input}
               placeholder="Mật khẩu"
               secureTextEntry={true}
-              value={password}
-              onChangeText={setPassword}
+              onChangeText={(text) => setPassword(text)}
             />
             <TouchableOpacity onPress={handleForgot}>
               <View>

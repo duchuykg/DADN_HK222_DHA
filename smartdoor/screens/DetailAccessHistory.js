@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView, } from "react-native";
 
 async function getlock(id) {
   try {
@@ -24,6 +24,10 @@ const DetailAccessHistory = ({ route }) => {
     }
     fetchData();
   }, []);
+  
+  const handleAbout = () => {
+    return navigation.navigate("Details", {user});
+  };
 
   return (
     <>
@@ -36,7 +40,7 @@ const DetailAccessHistory = ({ route }) => {
                 <Image
                   style={styles.image}
                   resizeMode="cover"
-                  source={require("../assets/avatar-profile.png")}
+                  source={{uri: user.anhDaiDien}}
                 />
                 <View style={styles.textContainer}>
                   <Text style={styles.name}>{user.ten}</Text>

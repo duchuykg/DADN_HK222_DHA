@@ -2,6 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import axios from "axios";
+
 
 const NewDoor = () => {
     const [status, setStatus] = useState("Close");
