@@ -17,6 +17,7 @@ async function getAllAdmin() {
 const Login = ({ navigation }) => {
   const [taiKhoan, setUsername] = useState("");
   const [matKhau, setPassword] = useState("");
+  const [login, setLogin] = useState([])
   useEffect(() => {
     async function fetchData() {
       
@@ -26,35 +27,23 @@ const Login = ({ navigation }) => {
   }, []);
 
   const handleLogin = () => {
+    return navigation.navigate('Main');
     // let request = {
     //   taiKhoan,
     //   matKhau,
     // };
+    // // axios.post("https://dhabackend.onrender.com/admin/login", request).then((respond) => {
     // axios.post("https://dhabackend.onrender.com/admin/login", request).then((respond) => {
-      
     //   if (respond.data.admin) {
+    //     console.log(respond.data.admin)
     //     localStorage.setItem('admin', respond.data.admin)
     //     return navigation.navigate('Main');
-    //   } else {
+    //   } 
+    //   else {
     //     Alert.alert('Tài khoản thử nghiệm: Tên đăng nhập: 1');
     //   }
     // });
-    return navigation.navigate('Main');
-    // let loginSuccess = false;
-    // login.map((adminitem) => {
-    //   if (username === adminitem.taiKhoan && password === adminitem.password) {
-    //     loginSuccess = true;
-    //     return navigation.navigate('Main');
-    //   } 
-    // });
-    // if (!loginSuccess) {
-    //   return navigation.navigate('Main');
-    // } 
-    // else {
-    //   Alert.alert('Tài khoản thử nghiệm: Tên đăng nhập: 1');
-    // }
   };
-    
   const handleForgot = () => {
     return navigation.navigate('Password')
   };
