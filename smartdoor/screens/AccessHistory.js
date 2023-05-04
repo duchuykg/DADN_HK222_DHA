@@ -1,32 +1,33 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+
+const ENDPOINT = "https://dhabackend.onrender.com";
 
 async function getuser(id) {
   try {
-    const response = await axios.get("https://dhabackend.onrender.com/user/" + id);
+    const response = await axios.get(ENDPOINT + "/user/" + id);
     return response.data;
   } catch (error) {
-    console.error(error);
+    console.error("getuser");
     throw error;
   }
 }
 
 const BlockInValid = ({ navigation, data }) => {
   const valid = false;
-  const [user, setUser] = useState({});
   const onPressButton = () => {
-    return navigation.navigate("Details", { valid, user, data });
+    return navigation.navigate("Details", { valid, data });
   };
-
-  useEffect(() => {
-    async function fetchData() {
-      const data1 = await getuser(data.userID);
-      setUser(data1);
-    }
-    fetchData();
-  }, []);
 
   return (
     <>
@@ -40,7 +41,9 @@ const BlockInValid = ({ navigation, data }) => {
             />
             <View style={[styles.masterList1, styles.ml12]}>
               <Text style={styles.caption1}>There is one invalid visitor.</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>In {data.time}</Text>
+              <Text style={[styles.subcaption1, styles.mt2]}>
+                In {data.time}
+              </Text>
             </View>
           </View>
           <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
@@ -58,14 +61,19 @@ const BlockInValid = ({ navigation, data }) => {
 const BlockValid = ({ navigation, data }) => {
   const valid = true;
   const [user, setUser] = useState({});
+  const [admin, setAdmin] = useState(false)
   const onPressButton = () => {
-    return navigation.navigate("Details", { valid, user, data});
+    return navigation.navigate("Details", { valid, user, data });
   };
 
   useEffect(() => {
     async function fetchData() {
-      const data1 = await getuser(data.userID);
-      setUser(data1);
+      if (data.userID) {
+        const data1 = await getuser(data.userID);
+        setUser(data1);
+      } else {
+        setAdmin(true)
+      }
     }
     fetchData();
   }, []);
@@ -81,8 +89,11 @@ const BlockValid = ({ navigation, data }) => {
               source={require("../assets/icon-l.png")}
             />
             <View style={[styles.masterList1, styles.ml12]}>
-              <Text style={styles.caption1}>{user.ten} is valid visitor.</Text>
-              <Text style={[styles.subcaption1, styles.mt2]}>In {data.time}</Text>
+              {!admin && <Text style={styles.caption1}>{user.ten} is valid visitor.</Text>}
+              {!admin || <Text style={styles.caption1}>One admin has opened the door</Text>}
+              <Text style={[styles.subcaption1, styles.mt2]}>
+                In {data.time}
+              </Text>
             </View>
           </View>
           <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
@@ -99,11 +110,10 @@ const BlockValid = ({ navigation, data }) => {
 };
 async function getAllHistory() {
   try {
-    const response = await axios.get("https://dhabackend.onrender.com/history");
-    console.log(response.data);
+    const response = await axios.get(ENDPOINT + "/history");
     return response.data.historys;
   } catch (error) {
-    console.error(error);
+    console.error("getAllHistory");
     throw error;
   }
 }
@@ -117,11 +127,21 @@ const AccessHistory = ({ navigation }) => {
     }
     fetchData();
   }, []);
+
+  // Realtime update
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const data = await getAllHistory();
+      setHistory(data);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <View style={styles.accessHistory}>
       <ScrollView style={styles.body}>
         {history.map((historyitem, index) => {
-          if (historyitem.valid)
+          if (historyitem.open)
             return (
               <BlockValid
                 navigation={navigation}

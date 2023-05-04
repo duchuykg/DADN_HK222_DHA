@@ -9,6 +9,7 @@ const DoorBlock = ({ navigation, lock }) => {
   const onPressButton = () => {
     return navigation.navigate("Details", {lock});
   };
+  
   return (
     <View style={styles.groupContainer}>
       <View style={styles.listConfirmGroup}>
@@ -21,7 +22,7 @@ const DoorBlock = ({ navigation, lock }) => {
           </View>
         </View>
         <TouchableOpacity style={styles.listConfirm2} onPress={onPressButton}>
-          <Image
+          <Image  
             style={styles.iconL1}
             resizeMode="cover"
             source={require("../assets/group-9.png")}
@@ -29,7 +30,7 @@ const DoorBlock = ({ navigation, lock }) => {
         </TouchableOpacity>
       </View>
     </View>
-  );
+  ); 
 };
 async function getAlldoor() {
   try {
@@ -49,6 +50,14 @@ const Door = ({ navigation }) => {
     }
     fetchData();
   }, []);
+  // Realtime update
+  // useEffect(() => {
+  //   const interval = setInterval(async () => {
+  //     const data = await getAlldoor();
+  //     setLock(data);
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <View>
@@ -60,8 +69,16 @@ const Door = ({ navigation }) => {
 };
 
 const handleFilterPress = () => {
-  console.log("Filter button pressed!");
 };
+
+// const handleSearch = () => {
+//   const filteredData = locks.filter((item) =>
+//     item.ten.toLowerCase().includes(searchText.toLowerCase())
+//   );
+
+//   // Cập nhật state locks với dữ liệu lọc được
+//   setLock(filteredData);
+// };
 
 const Doors = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
@@ -93,6 +110,7 @@ const Doors = ({ navigation }) => {
             placeholder="Search ..."
             value={searchText}
             onChangeText={(text) => setSearchText(text)}
+            // onSubmitEditing={handleSearch} 
           />
         </View>
 

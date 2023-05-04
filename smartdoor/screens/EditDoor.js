@@ -1,12 +1,25 @@
 import * as React from "react";
 import { useState } from "react";
-import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Alert} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import axios from "axios";
 
+
+async function putDoor(doorData) {
+  try {
+    const response = await axios.put("https://dhabackend.onrender.com/lock/64377e558bdf9fac813f7086", doorData);
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 const EditDoor = ({ route }) => {
     const { lock } = route.params;
-
+    const [newname, setNewname] = useState("");
+    const [newviTri, setNewviTri] = useState("");
     const [status, setStatus] = useState("Close");
     const [backgroundColor, setBackgroundColor] = useState("#8a2be2");
     const [color, setColor] = useState("#FFF");
@@ -15,6 +28,19 @@ const EditDoor = ({ route }) => {
         setStatus(status === "Open" ? "Close" : "Open");
         setBackgroundColor(status === "Open" ? "#8a2be2" : "green");
         setColor(status === "Open" ? "#FFF" : "black");
+    };
+    
+    const handleSave = () => {
+      // const doorData = {
+      //   ten: newname,
+      //   viTri: newviTri,
+      //   status: status
+      // };    
+      // putDoor(doorData);
+      Alert.alert(
+        "Congratulation !",
+        "Edit thành công !!!",
+      )
     };
   return (
     <>
@@ -48,11 +74,13 @@ const EditDoor = ({ route }) => {
                     Name
                   </Text>
                 </View>
-                <View style={{ paddingHorizontal: 10 }}>
-                  <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right"  }}>
-                    {lock.ten}
+                <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right" }}
+                    placeholder= {lock.ten}
+                    placeholderTextColor="gray"
+                    onChangeText={(text) => setNewname(text)}
+                    >
+                     
                   </TextInput>
-                </View>
               </View>
               
               <View
@@ -83,9 +111,11 @@ const EditDoor = ({ route }) => {
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
                   <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right" }}
-                    placeholder="North"
+                    placeholder= {lock.viTri}
                     placeholderTextColor="gray"
+                    onChangeText={(text) => setNewviTri(text)}
                     >
+                     
                   </TextInput>
                 </View>
               </View>
@@ -118,7 +148,7 @@ const EditDoor = ({ route }) => {
                 </View>
                 <View style={{ paddingHorizontal: 10 }}>
                 <TextInput style={{ color: "gray", paddingHorizontal: 10, textAlign: "right" }}>
-                </TextInput>
+                  </TextInput>
                 </View>
               </View>
 
@@ -151,7 +181,8 @@ const EditDoor = ({ route }) => {
                 <View style={[styles.box, {backgroundColor}]}>
                     <TouchableOpacity style={styles.box} onPress={handleStatusChange}>
                     <Text style={{ color: color, paddingHorizontal: 10, fontWeight: "bold" }}>
-                        {status}
+                      {status}
+                    {/* {lock.status == True ? "Open" : "Close"} */}
                     </Text>
                     </TouchableOpacity>
                 </View>
@@ -160,7 +191,7 @@ const EditDoor = ({ route }) => {
               {/* Button */}
               </View>
                 <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button, styles.editButton]}>
+                <TouchableOpacity style={[styles.button, styles.editButton]} onPress={handleSave}>
                 <View>
                   <View style={{
                       flexDirection: "row",

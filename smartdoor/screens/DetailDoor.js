@@ -1,14 +1,142 @@
 import * as React from "react";
-import { useState } from "react";
-import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput} from "react-native";
+import { useState, useEffect } from "react";
+import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, } from "react-native";
 import { Alert } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+const ENDPOINT = "https://dhabackend.onrender.com";
+import axios from "axios";
 
+async function getNewLightStatus() {
+  try {
+    const response = await axios.get(ENDPOINT + "/lightvalue");
+    console.log(response.data);
+    return response.data.light_value;
+  } catch (error) {
+    console.error("getNewLightStatus");
+    throw error;
+  }
+}
 
+async function getNewThreshold() {
+  try {
+    const response = await axios.get(ENDPOINT + "/thresholds");
+    console.log(response.data);
+    return response.data.threshold_value;
+  } catch (error) {
+    console.error("getNewThreshold");
+    throw error;
+  }
+}
+
+async function getNewDoorStatus() {
+  try {
+    const response = await axios.get(ENDPOINT + "/lock/64377e558bdf9fac813f7086");
+    console.log(response.data);
+    return response.data.status;
+  } catch (error) {
+    console.error("getNewDoorStatus");
+    throw error;
+  }
+}
+
+// async function deleteDoor() {
+//   try {
+//     const response = await axios.delete(ENDPOINT + "/lock/64535a6f97b0be9b606e7658");
+//     console.log(response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.error("deleteDoor");
+//     throw error;
+//   }
+// }
 const DetailDoor = ({ navigation, route }) => {
-  const { lock } = route.params;
+  const [lock, setLock] = useState(route.params.lock);
+  const [light, setLight] = useState(0);
+  const [thresholds, setThresholds] = useState(0);
+  const [doorstatus, setDoorstatus] = useState(false);
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const data1 = await getNewLightStatus();
+      const data2 = await getNewDoorStatus();
+      const data3 = await getNewThreshold();
+      setLight(data1);
+      setDoorstatus(data2);
+      setThresholds(data3);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
   const handleEditPress = () => {
     return navigation.navigate("Edit", { lock });
+  };
+
+  const handOnChangeStatusTOpen = async () => {
+    if (lock.status == 1) {
+      Alert.alert("Already opened", "You can try closing it");
+    } else {
+      try {
+        const headers = {
+          "X-AIO-Key": "aio_fZSE33xOwNlN3MtYt1XWDcrHr6WJ",
+          "Content-Type": "application/json",
+        };
+
+        const data = {
+          value: 1,
+        };
+
+        axios
+          .post(
+            "https://io.adafruit.com/api/v2/minhduco19/feeds/hardware-status.lock-status/data",
+            data,
+            { headers }
+          )
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        setLock({ ...lock, status: 1 });
+      } catch (error) {
+        console.error("handOnChangeStatusTOpen");
+        throw error;
+      }
+    }
+  };
+
+  const handOnChangeStatusTClode = async () => {
+    if (lock.status == 0) {
+      Alert.alert("Already closed", "You can try opening it");
+    } else {
+      try {
+        const headers = {
+          "X-AIO-Key": "aio_fZSE33xOwNlN3MtYt1XWDcrHr6WJ",
+          "Content-Type": "application/json",
+        };
+
+        const data = {
+          value: 0,
+        };
+
+        axios
+          .post(
+            "https://io.adafruit.com/api/v2/minhduco19/feeds/hardware-status.lock-status/data",
+            data,
+            { headers }
+          )
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        setLock({ ...lock, status: 0 });
+      } catch (error) {
+        console.error("handOnChangeStatusTOpen");
+        throw error;
+      }
+    }
   };
   return (
     <>
@@ -108,11 +236,42 @@ const DetailDoor = ({ navigation, route }) => {
                     paddingHorizontal: 10,
                   }}
                 >
-                  Note
+                  Light Intensity
                 </Text>
               </View>
               <View style={{ paddingHorizontal: 10 }}>
-                <Text style={{ color: "gray", paddingHorizontal: 10 }}></Text>
+                <Text style={{ color: "gray", paddingHorizontal: 10 }}>{light}</Text>
+              </View>
+            </View>
+
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingVertical: 5,
+                backgroundColor: "#fff",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  padding: 5,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 20,
+                    paddingHorizontal: 10,
+                  }}
+                >
+                  Threshold
+                </Text>
+              </View>
+              <View style={{ paddingHorizontal: 10 }}>
+                <Text style={{ color: "gray", paddingHorizontal: 10 }}>{thresholds}</Text>
               </View>
             </View>
 
@@ -142,23 +301,40 @@ const DetailDoor = ({ navigation, route }) => {
                   Status
                 </Text>
               </View>
-              <View style={styles.box}>
-                <Text
-                  style={{
-                    color: "black",
-                    paddingHorizontal: 10,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Open
-                </Text>
-              </View>
+              {doorstatus ? (
+                <View style={styles.box}>
+                  <Text
+                    style={{
+                      color: "black",
+                      paddingHorizontal: 10,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Open
+                  </Text>
+                </View>
+              ) : (
+                <View style={styles.box1}>
+                  <Text
+                    style={{
+                      color: "#fff",
+                      paddingHorizontal: 10,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Close
+                  </Text>
+                </View>
+              )}
             </View>
 
             {/* Button */}
           </View>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.button, styles.deleteButton]}>
+            <TouchableOpacity
+              style={[styles.button, styles.deleteButton]}
+              onPress={handOnChangeStatusTOpen}
+            >
               <View>
                 <View
                   style={{
@@ -172,7 +348,10 @@ const DetailDoor = ({ navigation, route }) => {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button1, styles.deleteButton]}>
+            <TouchableOpacity
+              style={[styles.button1, styles.deleteButton]}
+              onPress={handOnChangeStatusTClode}
+            >
               <View>
                 <View
                   style={{
@@ -200,7 +379,11 @@ const DetailDoor = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Ionicons name={"pencil-sharp"} size={20} color={"#007AFF"}></Ionicons>
+                  <Ionicons
+                    name={"pencil-sharp"}
+                    size={20}
+                    color={"#007AFF"}
+                  ></Ionicons>
                   <Text style={styles.buttonTextB}> Edit </Text>
                 </View>
               </View>
@@ -219,7 +402,11 @@ const DetailDoor = ({ navigation, route }) => {
                     {
                       text: "OK",
                       onPress: () => {
-                        // Thêm xử lý xóa dữ liệu ở đây
+                        // deleteDoor();
+                        Alert.alert(
+                          "Congratulation !",
+                          "Xóa thành công !!!",
+                        )
                       },
                     },
                   ]
@@ -234,7 +421,7 @@ const DetailDoor = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Ionicons name={"trash-outline"} size={20} ></Ionicons>
+                  <Ionicons name={"trash-outline"} size={20}></Ionicons>
                   <Text style={styles.buttonText}> Delete </Text>
                 </View>
               </View>
@@ -359,6 +546,13 @@ const styles = StyleSheet.create({
   },
   box: {
     backgroundColor: "green",
+    borderColor: "#000",
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 32,
+  },
+  box1: {
+    backgroundColor: "#8a2be2",
     borderColor: "#000",
     paddingHorizontal: 15,
     paddingVertical: 8,

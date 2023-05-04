@@ -7,12 +7,10 @@ const historySchema = new Schema(
     lockID: {
       type: Schema.Types.ObjectId,
       ref: "locks",
-      required: true,
     },
     userID: {
       type: Schema.Types.ObjectId,
       ref: "users",
-      required: true,
     },
     adminID: {
       type: Schema.Types.ObjectId,
@@ -21,6 +19,7 @@ const historySchema = new Schema(
     time: {
       type: Date,
       default: Date.now,
+      unique: true,
     },
     open: {
       type: Boolean,
